@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://capturehudtimerscreenshot01"]
+[gd_scene format=3 uid="uid://24l8bn31onem"]
 
 [ext_resource type="Script" path="res://tests/CaptureHUDTimerScreenshot.gd" id="1_test"]
 

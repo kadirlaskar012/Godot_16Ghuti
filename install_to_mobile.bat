@@ -7,8 +7,8 @@ adb devices
 echo Stopping any existing 16 Guti instance...
 adb shell am force-stop com.antigravity.shologuti
 echo.
-echo Installing build\16_Guti.apk...
-adb install -r build\16_Guti.apk
+echo Installing build\16_Guti_Release.apk...
+adb install -r build\16_Guti_Release.apk
 if %ERRORLEVEL% EQU 0 (
     echo.
     echo [SUCCESS] App installed successfully!
