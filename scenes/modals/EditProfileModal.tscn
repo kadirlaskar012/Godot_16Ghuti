@@ -1,0 +1,165 @@
+[gd_scene load_steps=6 format=3 uid="uid://ceditprofilemodal01"]
+
+[ext_resource type="Script" path="res://scripts/ui/EditProfileModal.gd" id="1_edit"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.11, 0.07, 0.035, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.7, 0.35, 0.9)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0.16, 0.11, 0.06, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.6, 0.3, 0.8)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+content_margin_left = 18.0
+content_margin_right = 18.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_save"]
+bg_color = Color(0.8, 0.54, 0.16, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.92, 0.65, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_cancel"]
+bg_color = Color(0.18, 0.11, 0.05, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.6, 0.3, 0.7)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[node name="EditProfileModal" type="CanvasLayer"]
+process_mode = 3
+layer = 25
+script = ExtResource("1_edit")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(840, 920)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 36
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.42, 1)
+theme_override_font_sizes/font_size = 42
+text = "EDIT PROFILE"
+horizontal_alignment = 1
+
+[node name="NameSection" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/Margin/VBox/NameSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.82, 0.7, 1)
+theme_override_font_sizes/font_size = 28
+text = "Player Name:"
+
+[node name="NameInput" type="LineEdit" parent="CenterContainer/Panel/Margin/VBox/NameSection"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.88, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+text = "Player 1"
+max_length = 16
+
+[node name="ErrorLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/NameSection"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.35, 1)
+theme_override_font_sizes/font_size = 22
+text = "Name cannot be empty!"
+
+[node name="AvatarSection" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/Margin/VBox/AvatarSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.82, 0.7, 1)
+theme_override_font_sizes/font_size = 28
+text = "Select Avatar:"
+
+[node name="AvatarGrid" type="GridContainer" parent="CenterContainer/Panel/Margin/VBox/AvatarSection"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 14
+columns = 4
+
+[node name="ButtonsHBox" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/ButtonsHBox"]
+custom_minimum_size = Vector2(240, 76)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.82, 0.7, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cancel")
+text = "CANCEL"
+
+[node name="SaveButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/ButtonsHBox"]
+custom_minimum_size = Vector2(280, 76)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.98, 0.9, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_save")
+text = "SAVE"

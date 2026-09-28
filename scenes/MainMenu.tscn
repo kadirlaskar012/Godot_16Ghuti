@@ -1,0 +1,379 @@
+[gd_scene load_steps=15 format=3 uid="uid://cmainmenu16guti01"]
+
+[ext_resource type="Script" path="res://scripts/ui/MainMenu.gd" id="1_menu"]
+[ext_resource type="Texture2D" path="res://assets/textures/tabletop_bg.jpg" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/textures/bg_light_spot.png" id="3_spot"]
+[ext_resource type="Texture2D" path="res://assets/textures/vignette_overlay.png" id="4_vignette"]
+[ext_resource type="Texture2D" path="res://assets/textures/avatar_player1.png" id="5_av1"]
+[ext_resource type="Texture2D" path="res://assets/textures/coin_gold.png" id="6_coin"]
+[ext_resource type="Texture2D" path="res://assets/textures/icon_settings.png" id="7_set"]
+[ext_resource type="Texture2D" path="res://assets/textures/game_logo.png" id="8_logo"]
+
+[sub_resource type="Gradient" id="Gradient_dust"]
+colors = PackedColorArray(1, 0.88, 0.5, 0.7, 1, 0.65, 0.25, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header_pill"]
+bg_color = Color(0.12, 0.08, 0.04, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.35, 0.8)
+corner_radius_top_left = 36
+corner_radius_top_right = 36
+corner_radius_bottom_right = 36
+corner_radius_bottom_left = 36
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_primary"]
+bg_color = Color(0.8, 0.54, 0.16, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.92, 0.65, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 16
+shadow_offset = Vector2(0, 7)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_secondary"]
+bg_color = Color(0.16, 0.1, 0.05, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78, 0.62, 0.35, 0.75)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.42)
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
+bg_color = Color(0.28, 0.18, 0.08, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.92, 0.75, 0.38, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="WarmSpotlight" type="TextureRect" parent="."]
+modulate = Color(1, 0.85, 0.6, 0.35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -650.0
+offset_right = 450.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_spot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Vignette" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 0.55)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vignette")
+expand_mode = 1
+
+[node name="AmbientDust" type="CPUParticles2D" parent="."]
+position = Vector2(540, 1920)
+amount = 28
+lifetime = 7.0
+preprocess = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(540, 20)
+direction = Vector2(0, -1)
+spread = 25.0
+gravity = Vector2(0, -12)
+initial_velocity_min = 35.0
+initial_velocity_max = 75.0
+scale_amount_min = 2.5
+scale_amount_max = 5.5
+color_ramp = SubResource("Gradient_dust")
+
+[node name="SafeArea" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 56
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="ContentLayout" type="VBoxContainer" parent="SafeArea"]
+layout_mode = 2
+
+[node name="TopBar" type="HBoxContainer" parent="SafeArea/ContentLayout"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ProfileButton" type="Button" parent="SafeArea/ContentLayout/TopBar"]
+custom_minimum_size = Vector2(340, 92)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/hover = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_header_pill")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/ContentLayout/TopBar/ProfileButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_right = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Avatar" type="TextureRect" parent="SafeArea/ContentLayout/TopBar/ProfileButton/HBox"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_av1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="SafeArea/ContentLayout/TopBar/ProfileButton/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.92, 0.84, 1)
+theme_override_font_sizes/font_size = 34
+text = "Player 1"
+
+[node name="Spacer" type="Control" parent="SafeArea/ContentLayout/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CoinsButton" type="Button" parent="SafeArea/ContentLayout/TopBar"]
+custom_minimum_size = Vector2(230, 92)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/hover = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_header_pill")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/ContentLayout/TopBar/CoinsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="CoinIcon" type="TextureRect" parent="SafeArea/ContentLayout/TopBar/CoinsButton/HBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_coin")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CoinsLabel" type="Label" parent="SafeArea/ContentLayout/TopBar/CoinsButton/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.86, 0.38, 1)
+theme_override_font_sizes/font_size = 34
+text = "250"
+horizontal_alignment = 1
+
+[node name="RightControls" type="VBoxContainer" parent="SafeArea/ContentLayout/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SettingsButton" type="Button" parent="SafeArea/ContentLayout/TopBar/RightControls"]
+custom_minimum_size = Vector2(92, 92)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/hover = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_header_pill")
+
+[node name="SettingsIcon" type="TextureRect" parent="SafeArea/ContentLayout/TopBar/RightControls/SettingsButton"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -26.0
+offset_right = 26.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_set")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ThemeButton" type="Button" parent="SafeArea/ContentLayout/TopBar/RightControls"]
+custom_minimum_size = Vector2(92, 92)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.75, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/hover = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_header_pill")
+text = "🎨"
+
+[node name="TopSpacer" type="Control" parent="SafeArea/ContentLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LogoCenter" type="CenterContainer" parent="SafeArea/ContentLayout"]
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="SafeArea/ContentLayout/LogoCenter"]
+custom_minimum_size = Vector2(660, 256)
+layout_mode = 2
+texture = ExtResource("8_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MidSpacer" type="Control" parent="SafeArea/ContentLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsCenter" type="CenterContainer" parent="SafeArea/ContentLayout"]
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="SafeArea/ContentLayout/ButtonsCenter"]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="PlayAIButton" type="Button" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
+custom_minimum_size = Vector2(680, 128)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14, 0.08, 0.03, 1)
+theme_override_colors/font_pressed_color = Color(0.06, 0.03, 0.01, 1)
+theme_override_colors/font_hover_color = Color(0.18, 0.1, 0.04, 1)
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_primary")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_primary")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_primary")
+text = "PLAY VS AI"
+
+[node name="PrimaryGap" type="Control" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="PlayLocalButton" type="Button" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
+custom_minimum_size = Vector2(680, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.9, 0.8, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.88, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.88, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_secondary")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_secondary")
+text = "LOCAL 2 PLAYER"
+
+[node name="SecGap1" type="Control" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="PlayOnlineButton" type="Button" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
+custom_minimum_size = Vector2(680, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.9, 0.8, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.88, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.88, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_secondary")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_secondary")
+text = "ONLINE MULTIPLAYER"
+
+[node name="ComingSoonBadge" type="PanelContainer" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -118.0
+offset_top = -16.0
+offset_right = -14.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 1
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_badge")
+
+[node name="BadgeLabel" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton/ComingSoonBadge"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.38, 1)
+theme_override_font_sizes/font_size = 19
+text = "BETA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SecGap2" type="Control" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="RulesButton" type="Button" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
+custom_minimum_size = Vector2(680, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.9, 0.8, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.88, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.88, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_secondary")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_secondary")
+text = "HOW TO PLAY"
+
+[node name="BottomSpacer" type="Control" parent="SafeArea/ContentLayout"]
+layout_mode = 2
+size_flags_vertical = 3

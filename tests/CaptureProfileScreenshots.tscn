@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dj1igs3b52wts"]
+
+[ext_resource type="Script" path="res://tests/CaptureProfileScreenshots.gd" id="1_cap"]
+
+[node name="CaptureProfileScreenshots" type="Node"]
+script = ExtResource("1_cap")

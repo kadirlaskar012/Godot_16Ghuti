@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://e2e16guti001"]
+
+[ext_resource type="Script" path="res://tests/TestEndToEnd.gd" id="1_e2e"]
+
+[node name="TestEndToEnd" type="Node2D"]
+script = ExtResource("1_e2e")

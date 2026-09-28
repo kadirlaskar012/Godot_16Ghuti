@@ -1,0 +1,371 @@
+[gd_scene load_steps=12 format=3 uid="uid://cghudmobile01"]
+
+[ext_resource type="Script" path="res://scripts/ui/GameHUD.gd" id="1_hud"]
+[ext_resource type="Texture2D" path="res://assets/textures/avatar_warrior.png" id="2_av1"]
+[ext_resource type="Texture2D" path="res://assets/textures/avatar_ai.png" id="3_avai"]
+[ext_resource type="Script" path="res://scripts/ui/RadialTurnTimer.gd" id="4_radial"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_menu"]
+bg_color = Color(0.16, 0.09, 0.04, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.35, 0.8)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.14, 0.08, 0.04, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.35, 0.85)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 10
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.2, 0.11, 0.05, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.68, 0.3, 0.85)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 6
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_disabled"]
+bg_color = Color(0.12, 0.08, 0.05, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.35, 0.3, 0.4)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
+bg_color = Color(0.25, 0.16, 0.07, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.85, 0.7, 0.35, 0.7)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_circular_badge"]
+bg_color = Color(0.18, 0.11, 0.05, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.88, 0.72, 0.35, 0.85)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 6
+
+[node name="GameHUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="TopMargin" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 106.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 44
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 4
+
+[node name="HeaderBar" type="HBoxContainer" parent="TopMargin"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MenuButton" type="Button" parent="TopMargin/HeaderBar"]
+custom_minimum_size = Vector2(150, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.75, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_menu")
+text = "☰ MENU"
+
+[node name="Spacer" type="Control" parent="TopMargin/HeaderBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimerLabel" type="Label" parent="TopMargin/HeaderBar"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.45, 1)
+theme_override_font_sizes/font_size = 32
+text = "16 GUTI"
+horizontal_alignment = 1
+
+[node name="ThemeButton" type="Button" parent="TopMargin/HeaderBar"]
+custom_minimum_size = Vector2(150, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.78, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_menu")
+text = "🎨 THEME"
+
+[node name="SoundButton" type="Button" parent="TopMargin/HeaderBar"]
+custom_minimum_size = Vector2(64, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.75, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_menu")
+text = "🔊"
+
+[node name="P2Card" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 126)
+offset_left = 8.0
+offset_top = 138.0
+offset_right = 1072.0
+offset_bottom = 264.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="Margin" type="MarginContainer" parent="P2Card"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 8
+
+[node name="HBox" type="HBoxContainer" parent="P2Card/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Avatar" type="TextureRect" parent="P2Card/Margin/HBox"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("3_avai")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="P2Card/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="PlayerName" type="Label" parent="P2Card/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.82, 1)
+theme_override_font_sizes/font_size = 28
+text = "AI BOT"
+
+[node name="SubTitle" type="Label" parent="P2Card/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.78, 0.68, 1)
+theme_override_font_sizes/font_size = 20
+text = "IVORY OPPONENT"
+
+[node name="PieceCount" type="Label" parent="P2Card/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 24
+text = "16 Guti"
+
+[node name="TimerBox" type="HBoxContainer" parent="P2Card/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="P2RadialTimer" type="Control" parent="P2Card/Margin/HBox/TimerBox"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("4_radial")
+radius = 30.0
+stroke_width = 5.5
+
+[node name="P2ExtraBadge" type="PanelContainer" parent="P2Card/Margin/HBox/TimerBox"]
+custom_minimum_size = Vector2(88, 72)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_circular_badge")
+
+[node name="VBox" type="VBoxContainer" parent="P2Card/Margin/HBox/TimerBox/P2ExtraBadge"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = -4
+
+[node name="ExtraTitle" type="Label" parent="P2Card/Margin/HBox/TimerBox/P2ExtraBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.78, 0.35, 1)
+theme_override_font_sizes/font_size = 14
+text = "EXTRA"
+horizontal_alignment = 1
+
+[node name="P2ExtraLabel" type="Label" parent="P2Card/Margin/HBox/TimerBox/P2ExtraBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "05:00"
+horizontal_alignment = 1
+
+[node name="GlowBorder" type="ReferenceRect" parent="P2Card"]
+visible = false
+layout_mode = 2
+border_color = Color(0.96, 0.92, 0.8, 1)
+border_width = 3.5
+editor_only = false
+
+[node name="P1Card" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 126)
+offset_left = 8.0
+offset_top = 1630.0
+offset_right = 1072.0
+offset_bottom = 1756.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="Margin" type="MarginContainer" parent="P1Card"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 8
+
+[node name="HBox" type="HBoxContainer" parent="P1Card/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Avatar" type="TextureRect" parent="P1Card/Margin/HBox"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_av1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="P1Card/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="PlayerName" type="Label" parent="P1Card/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.82, 1)
+theme_override_font_sizes/font_size = 28
+text = "PLAYER 1"
+
+[node name="SubTitle" type="Label" parent="P1Card/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.55, 1)
+theme_override_font_sizes/font_size = 20
+text = "RED (YOU)"
+
+[node name="PieceCount" type="Label" parent="P1Card/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_font_sizes/font_size = 24
+text = "16 Guti"
+
+[node name="TimerBox" type="HBoxContainer" parent="P1Card/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="P1RadialTimer" type="Control" parent="P1Card/Margin/HBox/TimerBox"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("4_radial")
+radius = 30.0
+stroke_width = 5.5
+
+[node name="P1ExtraBadge" type="PanelContainer" parent="P1Card/Margin/HBox/TimerBox"]
+custom_minimum_size = Vector2(88, 72)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_circular_badge")
+
+[node name="VBox" type="VBoxContainer" parent="P1Card/Margin/HBox/TimerBox/P1ExtraBadge"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = -4
+
+[node name="ExtraTitle" type="Label" parent="P1Card/Margin/HBox/TimerBox/P1ExtraBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.78, 0.35, 1)
+theme_override_font_sizes/font_size = 14
+text = "EXTRA"
+horizontal_alignment = 1
+
+[node name="P1ExtraLabel" type="Label" parent="P1Card/Margin/HBox/TimerBox/P1ExtraBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "05:00"
+horizontal_alignment = 1
+
+[node name="GlowBorder" type="ReferenceRect" parent="P1Card"]
+visible = false
+layout_mode = 2
+border_color = Color(1, 0.45, 0.45, 1)
+border_width = 3.5
+editor_only = false
+
+[node name="BottomBar" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 76)
+offset_left = 8.0
+offset_top = 1760.0
+offset_right = 1072.0
+offset_bottom = 1836.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="UndoButton" type="Button" parent="BottomBar"]
+custom_minimum_size = Vector2(0, 74)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.92, 0.8, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.5, 0.45, 0.7)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_disabled")
+text = "↩ UNDO"
+
+[node name="HintButton" type="Button" parent="BottomBar"]
+custom_minimum_size = Vector2(0, 74)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.92, 0.8, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "💡 HINT"
+
+[node name="ResetButton" type="Button" parent="BottomBar"]
+custom_minimum_size = Vector2(0, 74)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.92, 0.8, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🔄 RESET"

@@ -1,0 +1,16 @@
+{
+  "name": "16-guti-nakama-runtime",
+  "version": "1.0.0",
+  "description": "Server-authoritative Nakama runtime module for 16 Guti / Sholo Guti",
+  "main": "data/modules/index.js",
+  "scripts": {
+    "build": "node build.js",
+    "test": "node tests/test_rules.js"
+  },
+  "keywords": ["nakama", "godot", "16guti", "sholo-guti", "multiplayer", "anti-cheat"],
+  "author": "16 Guti Team",
+  "license": "MIT",
+  "devDependencies": {
+    "nakama-runtime": "^1.31.0"
+  }
+}

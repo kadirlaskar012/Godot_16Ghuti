@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cptefx001"]
+
+[ext_resource type="Script" path="res://tests/TestCaptureEffects.gd" id="1_test"]
+
+[node name="TestCaptureEffects" type="Node2D"]
+script = ExtResource("1_test")

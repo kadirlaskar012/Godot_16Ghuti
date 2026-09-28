@@ -1,0 +1,367 @@
+[gd_scene load_steps=12 format=3 uid="uid://cthememodal16guti"]
+
+[ext_resource type="Script" path="res://scripts/ui/ThemeModal.gd" id="1_thm"]
+[ext_resource type="Texture2D" path="res://assets/textures/board_wood_classic.jpg" id="2_b_classic"]
+[ext_resource type="Texture2D" path="res://assets/textures/tabletop_classic.jpg" id="3_t_classic"]
+[ext_resource type="Texture2D" path="res://assets/textures/board_wood_mahogany.jpg" id="4_b_mahogany"]
+[ext_resource type="Texture2D" path="res://assets/textures/tabletop_mahogany.jpg" id="5_t_mahogany"]
+[ext_resource type="Texture2D" path="res://assets/textures/board_wood_light.jpg" id="6_b_maple"]
+[ext_resource type="Texture2D" path="res://assets/textures/tabletop_light.jpg" id="7_t_maple"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.12, 0.07, 0.03, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.7, 0.3, 0.95)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+content_margin_left = 36.0
+content_margin_top = 28.0
+content_margin_right = 36.0
+content_margin_bottom = 28.0
+shadow_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_cross"]
+bg_color = Color(0.18, 0.11, 0.06, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.35, 0.8)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_theme"]
+bg_color = Color(0.12, 0.08, 0.04, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.4, 0.25, 0.7)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
+bg_color = Color(0.9, 0.7, 0.15, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_primary"]
+bg_color = Color(0.72, 0.48, 0.14, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.88, 0.45, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 10
+
+[node name="ThemeModal" type="CanvasLayer"]
+process_mode = 3
+layer = 22
+script = ExtResource("1_thm")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(980, 1020)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="HeaderHBox" type="HBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+
+[node name="SpacerLeft" type="Control" parent="CenterContainer/Panel/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.86, 0.38, 1)
+theme_override_font_sizes/font_size = 44
+text = "🎨 BOARD & TABLE THEME"
+horizontal_alignment = 1
+
+[node name="CrossButton" type="Button" parent="CenterContainer/Panel/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.88, 0.75, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cross")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_cross")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_cross")
+text = "✕"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+
+[node name="SubTitle" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.84, 0.74, 0.85)
+theme_override_font_sizes/font_size = 24
+text = "Select a theme for live preview across the game"
+horizontal_alignment = 1
+
+[node name="CardsVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ClassicCard" type="Button" parent="CenterContainer/Panel/VBox/CardsVBox"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_card_theme")
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel/VBox/CardsVBox/ClassicCard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/Panel/VBox/CardsVBox/ClassicCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BoardPreview" type="TextureRect" parent="CenterContainer/Panel/VBox/CardsVBox/ClassicCard/Margin/HBox"]
+custom_minimum_size = Vector2(88, 140)
+layout_mode = 2
+texture = ExtResource("2_b_classic")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TablePreview" type="TextureRect" parent="CenterContainer/Panel/VBox/CardsVBox/ClassicCard/Margin/HBox"]
+custom_minimum_size = Vector2(88, 140)
+layout_mode = 2
+texture = ExtResource("3_t_classic")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="InfoVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox/CardsVBox/ClassicCard/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="Name" type="Label" parent="CenterContainer/Panel/VBox/CardsVBox/ClassicCard/Margin/HBox/InfoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.82, 1)
+theme_override_font_sizes/font_size = 32
+text = "Classic Dark Walnut"
+
+[node name="Desc" type="Label" parent="CenterContainer/Panel/VBox/CardsVBox/ClassicCard/Margin/HBox/InfoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.78, 0.68, 0.85)
+theme_override_font_sizes/font_size = 20
+text = "Signature dark walnut parquet & golden teak board"
+
+[node name="SelectedBadge" type="Label" parent="CenterContainer/Panel/VBox/CardsVBox/ClassicCard"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = 44.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.1, 0.08, 0.02, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge")
+text = "✓ ACTIVE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MahoganyCard" type="Button" parent="CenterContainer/Panel/VBox/CardsVBox"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_card_theme")
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel/VBox/CardsVBox/MahoganyCard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/Panel/VBox/CardsVBox/MahoganyCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BoardPreview" type="TextureRect" parent="CenterContainer/Panel/VBox/CardsVBox/MahoganyCard/Margin/HBox"]
+custom_minimum_size = Vector2(88, 140)
+layout_mode = 2
+texture = ExtResource("4_b_mahogany")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TablePreview" type="TextureRect" parent="CenterContainer/Panel/VBox/CardsVBox/MahoganyCard/Margin/HBox"]
+custom_minimum_size = Vector2(88, 140)
+layout_mode = 2
+texture = ExtResource("5_t_mahogany")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="InfoVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox/CardsVBox/MahoganyCard/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="Name" type="Label" parent="CenterContainer/Panel/VBox/CardsVBox/MahoganyCard/Margin/HBox/InfoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.82, 1)
+theme_override_font_sizes/font_size = 32
+text = "Royal Mahogany"
+
+[node name="Desc" type="Label" parent="CenterContainer/Panel/VBox/CardsVBox/MahoganyCard/Margin/HBox/InfoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.78, 0.68, 0.85)
+theme_override_font_sizes/font_size = 20
+text = "Deep crimson mahogany board & rich ruby table"
+
+[node name="SelectedBadge" type="Label" parent="CenterContainer/Panel/VBox/CardsVBox/MahoganyCard"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = 44.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.1, 0.08, 0.02, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge")
+text = "✓ ACTIVE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MapleCard" type="Button" parent="CenterContainer/Panel/VBox/CardsVBox"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_card_theme")
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel/VBox/CardsVBox/MapleCard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/Panel/VBox/CardsVBox/MapleCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BoardPreview" type="TextureRect" parent="CenterContainer/Panel/VBox/CardsVBox/MapleCard/Margin/HBox"]
+custom_minimum_size = Vector2(88, 140)
+layout_mode = 2
+texture = ExtResource("6_b_maple")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TablePreview" type="TextureRect" parent="CenterContainer/Panel/VBox/CardsVBox/MapleCard/Margin/HBox"]
+custom_minimum_size = Vector2(88, 140)
+layout_mode = 2
+texture = ExtResource("7_t_maple")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="InfoVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox/CardsVBox/MapleCard/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="Name" type="Label" parent="CenterContainer/Panel/VBox/CardsVBox/MapleCard/Margin/HBox/InfoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.82, 1)
+theme_override_font_sizes/font_size = 32
+text = "Ivory Maple (Light Mode)"
+
+[node name="Desc" type="Label" parent="CenterContainer/Panel/VBox/CardsVBox/MapleCard/Margin/HBox/InfoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.78, 0.68, 0.85)
+theme_override_font_sizes/font_size = 20
+text = "Radiant blonde maple board & bright ivory table"
+
+[node name="SelectedBadge" type="Label" parent="CenterContainer/Panel/VBox/CardsVBox/MapleCard"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = 44.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.1, 0.08, 0.02, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge")
+text = "✓ ACTIVE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/Panel/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SaveButton" type="Button" parent="CenterContainer/Panel/VBox"]
+custom_minimum_size = Vector2(460, 92)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_primary")
+text = "SAVE & APPLY"

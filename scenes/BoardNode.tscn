@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://c83k5n1ode01"]
+
+[ext_resource type="Script" path="res://scripts/board/BoardNode.gd" id="1_node"]
+[ext_resource type="Texture2D" path="res://assets/textures/node_socket.png" id="2_sock"]
+[ext_resource type="Texture2D" path="res://assets/textures/move_highlight.png" id="3_mhl"]
+[ext_resource type="Texture2D" path="res://assets/textures/capture_highlight.png" id="4_chl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 40.0
+
+[node name="BoardNode" type="Node2D"]
+script = ExtResource("1_node")
+
+[node name="SocketSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.50, 0.50)
+texture = ExtResource("2_sock")
+
+[node name="MoveHighlight" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.80, 0.80)
+texture = ExtResource("3_mhl")
+
+[node name="CaptureHighlight" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_chl")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="DebugLabel" type="Label" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -25.0
+offset_right = 20.0
+offset_bottom = -2.0
+horizontal_alignment = 1
+
+[connection signal="input_event" from="Area2D" to="." method="_on_input_event"]

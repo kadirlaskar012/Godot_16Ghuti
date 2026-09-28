@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgameplay16guti01"]
+
+[ext_resource type="Script" path="res://scripts/core/GameController.gd" id="1_ctrl"]
+[ext_resource type="Texture2D" path="res://assets/textures/tabletop_bg.jpg" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/Board.tscn" id="3_board"]
+[ext_resource type="PackedScene" path="res://scenes/GameHUD.tscn" id="4_hud"]
+[ext_resource type="Texture2D" path="res://assets/textures/vignette_overlay.png" id="5_vig"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ctrl")
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="TabletopTexture" type="TextureRect" parent="BackgroundLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Dim" type="ColorRect" parent="BackgroundLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.22)
+
+[node name="Vignette" type="TextureRect" parent="BackgroundLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_vig")
+expand_mode = 1
+
+[node name="Board" parent="." instance=ExtResource("3_board")]
+
+[node name="GameHUD" parent="." instance=ExtResource("4_hud")]

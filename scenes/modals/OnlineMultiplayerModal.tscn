@@ -1,0 +1,267 @@
+[gd_scene format=3 uid="uid://dsk7en2bojh0i"]
+
+[ext_resource type="Script" path="res://scripts/ui/OnlineMultiplayerModal.gd" id="1_modal"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.12, 0.08, 0.04, 0.97)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.70, 0.35, 0.95)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.18, 0.12, 0.07, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.65, 0.50, 0.25, 0.45)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_gold"]
+bg_color = Color(0.72, 0.50, 0.18, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.88, 0.50, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0.08, 0.05, 0.03, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.70, 0.55, 0.30, 0.7)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="OnlineMultiplayerModal" type="CanvasLayer"]
+process_mode = 3
+layer = 25
+script = ExtResource("1_modal")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.72)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(940, 1150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 36
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="HeaderBox" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/Margin/VBox/HeaderBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.98, 0.90, 0.65, 1)
+theme_override_font_sizes/font_size = 46
+text = "ONLINE MULTIPLAYER"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/HeaderBox"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.8, 0.6, 1)
+theme_override_font_sizes/font_size = 36
+text = "✕"
+flat = true
+
+[node name="ServerStatusBar" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="StatusIndicator" type="ColorRect" parent="CenterContainer/Panel/Margin/VBox/ServerStatusBar"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.2, 0.85, 0.4, 1)
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/ServerStatusBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 28
+text = "Checking Server Status..."
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="QuickMatchCard" type="PanelContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="CardMargin" type="MarginContainer" parent="CenterContainer/Panel/Margin/VBox/QuickMatchCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="CardVBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox/QuickMatchCard/CardMargin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="CardTitle" type="Label" parent="CenterContainer/Panel/Margin/VBox/QuickMatchCard/CardMargin/CardVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 34
+text = "⚔ 1v1 QUICK MATCH"
+
+[node name="CardDesc" type="Label" parent="CenterContainer/Panel/Margin/VBox/QuickMatchCard/CardMargin/CardVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.75, 0.65, 1)
+theme_override_font_sizes/font_size = 26
+text = "Play 16 Guti with a live online opponent.
+Server-authoritative 5-minute timer."
+
+[node name="FindMatchButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/QuickMatchCard/CardMargin/CardVBox"]
+custom_minimum_size = Vector2(0, 88)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.08, 0.02, 1)
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gold")
+text = "FIND MATCH"
+
+[node name="SearchingContainer" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox/QuickMatchCard/CardMargin/CardVBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="SearchLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/QuickMatchCard/CardMargin/CardVBox/SearchingContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 30
+text = "⏳ Searching for opponent..."
+horizontal_alignment = 1
+
+[node name="CancelSearchButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/QuickMatchCard/CardMargin/CardVBox/SearchingContainer"]
+custom_minimum_size = Vector2(260, 68)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "Cancel Search"
+
+[node name="PrivateRoomCard" type="PanelContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="CardMargin" type="MarginContainer" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="CardVBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="CardTitle" type="Label" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin/CardVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 34
+text = "🏠 FRIEND / PRIVATE ROOM"
+
+[node name="CardDesc" type="Label" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin/CardVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.75, 0.65, 1)
+theme_override_font_sizes/font_size = 26
+text = "Create a private room or enter your friend's code."
+
+[node name="CreateRoomButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin/CardVBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "CREATE PRIVATE ROOM"
+
+[node name="RoomCodeContainer" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin/CardVBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="CodeTitle" type="Label" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin/CardVBox/RoomCodeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.75, 0.6, 1)
+theme_override_font_sizes/font_size = 24
+text = "SHARE THIS ROOM CODE WITH YOUR FRIEND:"
+horizontal_alignment = 1
+
+[node name="RoomCodeDisplay" type="Label" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin/CardVBox/RoomCodeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 54
+text = "GT0000"
+horizontal_alignment = 1
+
+[node name="JoinBox" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin/CardVBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="RoomCodeInput" type="LineEdit" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin/CardVBox/JoinBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+placeholder_text = "Enter Room Code (e.g. GT4892)"
+alignment = 1
+max_length = 8
+
+[node name="JoinRoomButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/PrivateRoomCard/CardMargin/CardVBox/JoinBox"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "JOIN"
+
+[node name="ToastLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.45, 1)
+theme_override_font_sizes/font_size = 28
+text = "Connecting..."
+horizontal_alignment = 1
+autowrap_mode = 3

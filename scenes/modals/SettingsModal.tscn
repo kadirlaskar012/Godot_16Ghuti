@@ -1,0 +1,225 @@
+[gd_scene load_steps=9 format=3 uid="uid://csettingsmodal01"]
+
+[ext_resource type="Script" path="res://scripts/ui/SettingsModal.gd" id="1_set"]
+[ext_resource type="Texture2D" path="res://assets/textures/board_wood_classic.jpg" id="2_classic"]
+[ext_resource type="Texture2D" path="res://assets/textures/board_wood_mahogany.jpg" id="3_mahogany"]
+[ext_resource type="Texture2D" path="res://assets/textures/board_wood_light.jpg" id="4_maple"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.12, 0.07, 0.03, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.7, 0.3, 0.95)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+content_margin_left = 36.0
+content_margin_top = 32.0
+content_margin_right = 36.0
+content_margin_bottom = 32.0
+shadow_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.72, 0.48, 0.14, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.88, 0.45, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_theme"]
+bg_color = Color(0.12, 0.08, 0.04, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.4, 0.25, 0.7)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
+bg_color = Color(0.9, 0.7, 0.15, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_cross"]
+bg_color = Color(0.18, 0.11, 0.06, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.35, 0.8)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+shadow_size = 6
+
+[node name="SettingsModal" type="CanvasLayer"]
+process_mode = 3
+layer = 20
+script = ExtResource("1_set")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(980, 840)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="HeaderHBox" type="HBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+
+[node name="SpacerLeft" type="Control" parent="CenterContainer/Panel/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.86, 0.38, 1)
+theme_override_font_sizes/font_size = 46
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="CrossButton" type="Button" parent="CenterContainer/Panel/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.88, 0.75, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cross")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_cross")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_cross")
+text = "✕"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+
+[node name="TogglesVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="SoundRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/TogglesVBox"]
+layout_mode = 2
+
+[node name="SoundLabel" type="Label" parent="CenterContainer/Panel/VBox/TogglesVBox/SoundRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 34
+text = "🔊 Sound Effects"
+
+[node name="SoundToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/TogglesVBox/SoundRow"]
+custom_minimum_size = Vector2(140, 62)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "ON  ●"
+
+[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/TogglesVBox"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="CenterContainer/Panel/VBox/TogglesVBox/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 34
+text = "🎵 Background Music"
+
+[node name="MusicToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/TogglesVBox/MusicRow"]
+custom_minimum_size = Vector2(140, 62)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "ON  ●"
+
+[node name="HapticsRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/TogglesVBox"]
+layout_mode = 2
+
+[node name="HapticsLabel" type="Label" parent="CenterContainer/Panel/VBox/TogglesVBox/HapticsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 34
+text = "📳 Haptic Vibration"
+
+[node name="HapticsToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/TogglesVBox/HapticsRow"]
+custom_minimum_size = Vector2(140, 62)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "ON  ●"
+
+[node name="CaptureRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/TogglesVBox"]
+layout_mode = 2
+
+[node name="CaptureLabel" type="Label" parent="CenterContainer/Panel/VBox/TogglesVBox/CaptureRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 34
+text = "⚔️ Compulsory Capture"
+
+[node name="CaptureToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/TogglesVBox/CaptureRow"]
+custom_minimum_size = Vector2(140, 62)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "ON  ●"
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+
+[node name="OptionsVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TimerOption" type="OptionButton" parent="CenterContainer/Panel/VBox/OptionsVBox"]
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+
+[node name="DiffOption" type="OptionButton" parent="CenterContainer/Panel/VBox/OptionsVBox"]
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+
+[node name="Spacer" type="Control" parent="CenterContainer/Panel/VBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CloseButton" type="Button" parent="CenterContainer/Panel/VBox"]
+custom_minimum_size = Vector2(460, 92)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "SAVE & CLOSE"

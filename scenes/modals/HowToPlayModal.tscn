@@ -1,0 +1,116 @@
+[gd_scene load_steps=4 format=3 uid="uid://chowtoplay001"]
+
+[ext_resource type="Script" path="res://scripts/ui/HowToPlayModal.gd" id="1_htp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.12, 0.07, 0.03, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.7, 0.3, 0.9)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+content_margin_left = 40.0
+content_margin_top = 40.0
+content_margin_right = 40.0
+content_margin_bottom = 40.0
+shadow_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.65, 0.45, 0.15, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.85, 0.4, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="HowToPlayModal" type="CanvasLayer"]
+process_mode = 3
+layer = 20
+script = ExtResource("1_htp")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(900, 960)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 48
+text = "HOW TO PLAY"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="CenterContainer/Panel/VBox"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+
+[node name="RulesText" type="RichTextLabel" parent="CenterContainer/Panel/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.95, 0.9, 0.82, 1)
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 36
+bbcode_enabled = true
+text = "[b]1. THE OBJECTIVE[/b]
+Capture all 16 opponent pieces, or immobilize them so they have no legal moves remaining.
+
+[b]2. BOARD SETUP[/b]
+Each player starts with exactly 16 pieces:
+• Player 1: 16 Crimson Red pieces
+• Player 2: 16 Glossy Ivory pieces
+• Center Row: 5 empty points for opening moves.
+
+[b]3. MOVEMENT[/b]
+On your turn, tap your piece to view legal moves (glowing green/amber dots). Move 1 step along any drawn board line to an adjacent vacant intersection.
+
+[b]4. CAPTURING / JUMPING[/b]
+You can capture an opponent piece by hopping directly over it along a straight line into the empty point immediately beyond. The jumped opponent piece is removed.
+
+[b]5. MULTIPLE CAPTURE CHAINS[/b]
+After a successful jump, if your piece can make another capture from the landing spot, your turn continues! Keep hopping until no jumps remain.
+
+[b]6. CONTROLS[/b]
+• [b]UNDO:[/b] Take back your last move.
+• [b]HINT:[/b] Highlights an optimal strategic move.
+• [b]RESET:[/b] Restart match from 16 vs 16."
+
+[node name="CloseButton" type="Button" parent="CenterContainer/Panel/VBox"]
+custom_minimum_size = Vector2(380, 95)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "GOT IT!"

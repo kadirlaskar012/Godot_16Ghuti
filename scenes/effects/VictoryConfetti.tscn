@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://vicconf001"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/particle_sparkle.png" id="1_tex"]
+
+[sub_resource type="Curve" id="Curve_confetti"]
+_data = [Vector2(0, 0.4), 0.0, 1.2, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.2, 0.0, 0, 0]
+point_count = 3
+
+[node name="VictoryConfetti" type="CPUParticles2D"]
+emitting = false
+amount = 45
+lifetime = 1.6
+one_shot = true
+explosiveness = 0.75
+texture = ExtResource("1_tex")
+emission_shape = 3
+emission_rect_extents = Vector2(400, 50)
+spread = 90.0
+gravity = Vector2(0, 140)
+initial_velocity_min = 120.0
+initial_velocity_max = 280.0
+angular_velocity_min = -240.0
+angular_velocity_max = 240.0
+scale_amount_min = 0.4
+scale_amount_max = 0.95
+scale_amount_curve = SubResource("Curve_confetti")
+color = Color(1, 0.84, 0.25, 0.95)

@@ -1,0 +1,29 @@
+logger:
+  level: "INFO"
+  stdout: true
+
+session:
+  encryption_key: "default_encryption_key_change_in_production_16guti"
+  token_expiry_sec: 7200
+  refresh_encryption_key: "default_refresh_encryption_key_change_in_production"
+  refresh_token_expiry_sec: 604800 # 7 days
+
+socket:
+  max_message_size_bytes: 8192
+  ping_period_ms: 15000
+  pong_wait_ms: 25000
+  write_wait_ms: 10000
+  outgoing_queue_size: 64
+
+runtime:
+  path: "/nakama/data/modules"
+  js_entrypoint: "index.js"
+  env:
+    GAME_DURATION_SEC: "300"
+    MAX_REWARDED_ADS: "5"
+    MIN_CLIENT_VERSION: "1.0.0"
+
+console:
+  port: 7351
+  username: "admin"
+  password: "password"
