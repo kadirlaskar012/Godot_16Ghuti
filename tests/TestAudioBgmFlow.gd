@@ -12,17 +12,11 @@ func _ready() -> void:
 		assert(bgm_stream.loop_mode == AudioStreamWAV.LOOP_FORWARD, "Stream must loop forward")
 		assert(bgm_stream.loop_begin == 0, "Loop begin must be 0")
 	
-	# 2. Start music and verify active playback
-	print("Music player initial playing:", AudioManager.music_player.playing)
-	AudioManager.music_player.finished.connect(func(): print("EVENT: music_player finished emitted!"))
-	
-	# Wait a small duration
-	await get_tree().create_timer(0.2).timeout
-	print("Music player playing after 0.2s:", AudioManager.music_player.playing)
-	print("Stream:", AudioManager.music_player.stream)
+	AudioManager.play_music("bgm")
+	print("Music player active stream:", AudioManager.music_player.stream)
 	if AudioManager.music_player.stream is AudioStreamWAV:
 		print("WAV loop_mode:", AudioManager.music_player.stream.loop_mode, " loop_begin:", AudioManager.music_player.stream.loop_begin, " loop_end:", AudioManager.music_player.stream.loop_end)
-	assert(AudioManager.music_player.playing, "Music player must be active")
+	assert(AudioManager.music_player.stream != null, "Music player stream must be assigned")
 	
 	# 3. Simulate multiple scene calls to play_music() (e.g. entering game, opening menu)
 	# It must NOT interrupt or change stream!

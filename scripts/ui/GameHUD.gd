@@ -154,15 +154,22 @@ func is_bottom_bar_needed() -> bool:
 ## Positions P2Card, P1Card, and BottomBar dynamically with proper breathing room.
 ## Guarantees profiles NEVER touch board borders on any mobile aspect ratio.
 func position_layout_relative_to_board(board_top: float, board_bottom: float, vp_size: Vector2, gap_board: float = 24.0, p2_y_override: float = -1.0) -> void:
-	var margin_x: float = 8.0 # Clean 8px side margins per user requirement
+	var ui_scale: float = clampf(vp_size.x / 1080.0, 0.35, 1.5)
+	var margin_x: float = 8.0 * ui_scale
 	var card_w: float = vp_size.x - (margin_x * 2.0)
-	var card_h: float = 126.0
+	var actual_card_h: float = 129.0
+	if p2_panel:
+		actual_card_h = maxf(129.0 * ui_scale, p2_panel.get_combined_minimum_size().y)
+	var card_h: float = actual_card_h
 	var is_bar_needed: bool = is_bottom_bar_needed()
-	var bar_h: float = 76.0 if is_bar_needed else 0.0
-	var gap_card_to_bar: float = 4.0 # Tight 2-4px gap under player card per user requirement
+	var actual_bar_h: float = 76.0
+	if bottom_bar:
+		actual_bar_h = maxf(76.0 * ui_scale, bottom_bar.get_combined_minimum_size().y)
+	var bar_h: float = actual_bar_h if is_bar_needed else 0.0
+	var gap_card_to_bar: float = 4.0 if is_bar_needed else 0.0
 	
 	var safe_top: float = float(top_margin.get_theme_constant("margin_top")) if top_margin else 44.0
-	var header_bottom: float = safe_top + 58.0
+	var header_bottom: float = safe_top + (58.0 * ui_scale)
 	
 	var p2_y: float = p2_y_override
 	if p2_y < 0.0:
@@ -170,7 +177,7 @@ func position_layout_relative_to_board(board_top: float, board_bottom: float, vp
 		var top_slack = maxf(0.0, top_avail - card_h)
 		var gap_top = maxf(gap_board, top_slack * 0.50)
 		p2_y = board_top - card_h - gap_top
-		p2_y = maxf(p2_y, header_bottom + 10.0)
+		p2_y = maxf(p2_y, header_bottom + (6.0 * ui_scale))
 		
 	if p2_panel:
 		p2_panel.position = Vector2(margin_x, p2_y)

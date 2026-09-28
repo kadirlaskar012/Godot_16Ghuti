@@ -64,6 +64,7 @@ func _ready() -> void:
 	print("\n--- Test 2: In-Game Layout Spacing ---")
 	GameManager.current_mode = GameManager.GameMode.PLAYER_VS_AI
 	GameManager.is_game_active = true
+	get_viewport().size = Vector2i(1080, 1920)
 	var game_scene = load("res://scenes/Game.tscn")
 	var game: GameController = game_scene.instantiate()
 	add_child(game)
@@ -91,7 +92,9 @@ func _ready() -> void:
 	var screen_margin_right = vp.x - (p2.position.x + p2.size.x)
 	var bar_screen_bottom = vp.y - (bb.position.y + bb.size.y)
 	
-	print("Layout Metrics (1080x1920):")
+	print("Layout Metrics:")
+	print("  Viewport size (vp): ", vp)
+	print("  P2Card size: ", p2.size, " min_size: ", p2.get_combined_minimum_size())
 	print("  P2Card: Y=", p2.position.y, " to ", p2_bottom)
 	print("  Board: Top=", board_top, " Bottom=", board_bot, " Scale=", board_scale)
 	print("  Gap P2 to Board: ", gap_top, " px (must be >= 20px)")

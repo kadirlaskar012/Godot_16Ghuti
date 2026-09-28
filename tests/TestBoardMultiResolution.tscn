@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bibfq4e6vfrpk"]
+
+[ext_resource type="Script" path="res://tests/TestBoardMultiResolution.gd" id="1_test"]
+
+[node name="TestBoardMultiResolution" type="Node"]
+script = ExtResource("1_test")

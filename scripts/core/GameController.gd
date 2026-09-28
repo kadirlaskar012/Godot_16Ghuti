@@ -80,39 +80,62 @@ func _ready() -> void:
 
 func _update_responsive_layout() -> void:
 	var vp_size = get_viewport_rect().size
-	var safe = SafeAreaHelper.get_safe_margins()
+	var safe = SafeAreaHelper.get_safe_margins(vp_size.x)
 	
 	hud.apply_safe_margins(safe["top"], safe["bottom"])
 	
-	var safe_top = maxf(safe["top"], 44.0)
-	var safe_bot = maxf(safe["bottom"], 24.0)
-	var header_bottom = safe_top + 58.0
+	var safe_top = maxf(safe.get("top", 44.0), 44.0)
+	var safe_bot = maxf(safe.get("bottom", 24.0), 24.0)
+	var safe_left = maxf(safe.get("left", 0.0), 0.0)
+	var safe_right = maxf(safe.get("right", 0.0), 0.0)
+	var safe_width = maxf(200.0, vp_size.x - safe_left - safe_right)
 	
-	var card_h = 126.0
+	var ui_scale = clampf(vp_size.x / 1080.0, 0.35, 1.5)
+	var header_bottom = safe_top + (58.0 * ui_scale)
+	
+	var actual_card_h = 129.0
+	if hud and hud.p2_panel:
+		actual_card_h = maxf(129.0 * ui_scale, hud.p2_panel.get_combined_minimum_size().y)
+	var card_h = actual_card_h
+	
 	var is_bar_active = hud.is_bottom_bar_needed()
-	var bar_h = 76.0 if is_bar_active else 0.0
+	var actual_bar_h = 76.0
+	if hud and hud.bottom_bar:
+		actual_bar_h = maxf(76.0 * ui_scale, hud.bottom_bar.get_combined_minimum_size().y)
+	var bar_h = actual_bar_h if is_bar_active else 0.0
 	var gap_card_to_bar = 4.0 if is_bar_active else 0.0
 	var bot_ctrl_h = card_h + gap_card_to_bar + bar_h
 	
-	# Minimum breathing room from board edge so cards NEVER touch the board frame
-	var min_board_gap = 24.0
-	var min_header_p2_gap = 14.0
-	var min_screen_bot_gap = safe_bot + 8.0
+	# Minimum breathing room from board edge so cards NEVER touch or overlap the board frame
+	var min_board_gap = 14.0 * ui_scale
+	var min_header_p2_gap = 6.0 * ui_scale
+	var min_screen_bot_gap = safe_bot + (4.0 * ui_scale)
 	
 	var min_overhead = header_bottom + min_header_p2_gap + card_h + (min_board_gap * 2.0) + bot_ctrl_h + min_screen_bot_gap
-	var avail_for_board = maxf(500.0, vp_size.y - min_overhead)
+	var avail_for_board = maxf(100.0, vp_size.y - min_overhead)
 	
-	# Board width: texture is 768 * 1.3 = 998.4 wide, height is 1376 * 0.98 = 1348.48 high.
-	# Scale board cleanly: max 0.88 so it never over-expands and crams the cards
-	var max_scale_by_width = (vp_size.x - 32.0) / 998.4
-	var max_scale_by_height = avail_for_board / 1348.48
-	var target_scale = clampf(minf(max_scale_by_width, max_scale_by_height), 0.70, 0.88)
-	var board_h = 1348.48 * target_scale
+	# Board base dimensions in local board space:
+	# Texture is 768 * 1.3 = 998.4 wide, height is 1376 * 0.98 = 1348.48 high.
+	const BOARD_BASE_WIDTH: float = 998.4
+	const BOARD_BASE_HEIGHT: float = 1348.48
 	
-	# Compute vertical positioning by distributing the slack evenly
+	# Primary constraint: board width uses 94.8% (94–96% range) of available safe screen width.
+	# Equal left and right margins, horizontally centered.
+	var target_board_w = safe_width * 0.948
+	var scale_by_width = target_board_w / BOARD_BASE_WIDTH
+	
+	# If vertical space becomes limited on shorter screens, dynamically reduce board size to prevent overlap
+	var scale_by_height = avail_for_board / BOARD_BASE_HEIGHT
+	
+	# Uniform scale preserving aspect ratio 100% (never stretch or distort)
+	var target_scale = minf(scale_by_width, scale_by_height)
+	var board_w = BOARD_BASE_WIDTH * target_scale
+	var board_h = BOARD_BASE_HEIGHT * target_scale
+	
+	# Distribute vertical slack gracefully between header, board, and screen bottom
 	var slack = vp_size.y - (header_bottom + card_h + board_h + bot_ctrl_h)
-	var gap_h_p2 = clampf(slack * 0.12, 10.0, 32.0)
-	var gap_bar_screen = clampf(slack * 0.18, safe_bot + 6.0, 50.0)
+	var gap_h_p2 = clampf(slack * 0.08, min_header_p2_gap, 24.0 * ui_scale)
+	var gap_bar_screen = clampf(slack * 0.14, min_screen_bot_gap, safe_bot + (32.0 * ui_scale))
 	
 	var remaining_slack = maxf(min_board_gap * 2.0, slack - gap_h_p2 - gap_bar_screen)
 	var gap_board = maxf(min_board_gap, remaining_slack / 2.0)
@@ -121,7 +144,7 @@ func _update_responsive_layout() -> void:
 	var board_top = p2_y + card_h + gap_board
 	var board_center_y = board_top + (board_h / 2.0)
 	var board_bottom = board_top + board_h
-	var board_center_x = vp_size.x / 2.0
+	var board_center_x = safe_left + (safe_width / 2.0)
 	
 	board.set_board_center_and_scale(Vector2(board_center_x, board_center_y), target_scale)
 	hud.position_layout_relative_to_board(board_top, board_bottom, vp_size, gap_board, p2_y)
