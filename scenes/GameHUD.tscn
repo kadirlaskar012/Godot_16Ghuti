@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cghudmobile01"]
+[gd_scene load_steps=13 format=3 uid="uid://cghudmobile01"]
 
 [ext_resource type="Script" path="res://scripts/ui/GameHUD.gd" id="1_hud"]
 [ext_resource type="Texture2D" path="res://assets/textures/avatar_warrior.png" id="2_av1"]
 [ext_resource type="Texture2D" path="res://assets/textures/avatar_ai.png" id="3_avai"]
 [ext_resource type="Script" path="res://scripts/ui/RadialTurnTimer.gd" id="4_radial"]
+[ext_resource type="Script" path="res://scripts/ui/CardPerimeterProgressBar.gd" id="5_perimeter"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_menu"]
 bg_color = Color(0.16, 0.09, 0.04, 0.92)
@@ -207,12 +208,12 @@ theme_override_constants/separation = 12
 alignment = 2
 
 [node name="P2RadialTimer" type="Control" parent="P2Card/Margin/HBox/TimerBox"]
-custom_minimum_size = Vector2(72, 72)
+custom_minimum_size = Vector2(72, 76)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("4_radial")
-radius = 30.0
-stroke_width = 5.5
+radius = 27.0
+stroke_width = 4.5
 
 [node name="P2ExtraBadge" type="PanelContainer" parent="P2Card/Margin/HBox/TimerBox"]
 custom_minimum_size = Vector2(88, 72)
@@ -238,6 +239,14 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "05:00"
 horizontal_alignment = 1
+
+[node name="P2PerimeterBar" type="Control" parent="P2Card"]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("5_perimeter")
+corner_radius = 20.0
+stroke_width = 4.0
+player_color = Color(0.96, 0.92, 0.82, 0.95)
 
 [node name="GlowBorder" type="ReferenceRect" parent="P2Card"]
 visible = false
@@ -311,12 +320,12 @@ theme_override_constants/separation = 12
 alignment = 2
 
 [node name="P1RadialTimer" type="Control" parent="P1Card/Margin/HBox/TimerBox"]
-custom_minimum_size = Vector2(72, 72)
+custom_minimum_size = Vector2(72, 76)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("4_radial")
-radius = 30.0
-stroke_width = 5.5
+radius = 27.0
+stroke_width = 4.5
 
 [node name="P1ExtraBadge" type="PanelContainer" parent="P1Card/Margin/HBox/TimerBox"]
 custom_minimum_size = Vector2(88, 72)
@@ -342,6 +351,14 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "05:00"
 horizontal_alignment = 1
+
+[node name="P1PerimeterBar" type="Control" parent="P1Card"]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("5_perimeter")
+corner_radius = 20.0
+stroke_width = 4.0
+player_color = Color(1, 0.55, 0.45, 0.95)
 
 [node name="GlowBorder" type="ReferenceRect" parent="P1Card"]
 visible = false

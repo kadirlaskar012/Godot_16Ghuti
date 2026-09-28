@@ -10,6 +10,7 @@ signal hint_pressed
 signal reset_pressed
 signal menu_pressed
 signal time_expired
+signal player_extra_time_expired(timed_out_player: int)
 signal theme_changed(theme_id: String)
 
 @onready var top_margin: MarginContainer = $TopMargin
@@ -27,6 +28,7 @@ signal theme_changed(theme_id: String)
 @onready var p2_count_label: Label = p2_panel.find_child("PieceCount", true, false)
 @onready var p2_beads_container: HBoxContainer = p2_panel.find_child("P2Beads", true, false)
 @onready var p2_glow_border: ReferenceRect = p2_panel.find_child("GlowBorder", true, false)
+@onready var p2_perimeter_bar: Control = p2_panel.find_child("P2PerimeterBar", true, false)
 @onready var p2_radial: Control = p2_panel.find_child("P2RadialTimer", true, false)
 @onready var p2_extra_badge: PanelContainer = p2_panel.find_child("P2ExtraBadge", true, false)
 @onready var p2_extra_label: Label = p2_panel.find_child("P2ExtraLabel", true, false)
@@ -38,6 +40,7 @@ signal theme_changed(theme_id: String)
 @onready var p1_subtitle: Label = p1_panel.find_child("SubTitle", true, false)
 @onready var p1_count_label: Label = p1_panel.find_child("PieceCount", true, false)
 @onready var p1_beads_container: HBoxContainer = p1_panel.find_child("P1Beads", true, false)
+@onready var p1_perimeter_bar: Control = p1_panel.find_child("P1PerimeterBar", true, false)
 @onready var p1_radial: Control = p1_panel.find_child("P1RadialTimer", true, false)
 @onready var p1_extra_badge: PanelContainer = p1_panel.find_child("P1ExtraBadge", true, false)
 @onready var p1_extra_label: Label = p1_panel.find_child("P1ExtraLabel", true, false)
@@ -73,9 +76,9 @@ var _timer_pulse_tween: Tween
 var _last_pulse_second: int = -1
 var _active_toast: PanelContainer
 
-# 7-Second Normal Turn Timer & 60-Second Personal Extra Time Reserves
-var turn_normal_duration: float = float(BackendConfig.TURN_NORMAL_TIME) # 7.0s
-var player_extra_duration: float = float(BackendConfig.PLAYER_EXTRA_TIME) # 60.0s
+# 10-Second Normal Turn Timer & 300-Second (5-Minute) Personal Extra Time Bank
+var turn_normal_duration: float = float(BackendConfig.TURN_NORMAL_TIME) # 10.0s
+var player_extra_duration: float = float(BackendConfig.PLAYER_EXTRA_TIME) # 300.0s (5m)
 var current_turn_remaining: float = float(BackendConfig.TURN_NORMAL_TIME)
 var current_is_extra_time: bool = false
 var p1_extra_time_remaining: float = float(BackendConfig.PLAYER_EXTRA_TIME)
@@ -344,14 +347,12 @@ func _format_bank_time(secs: float) -> String:
 	return "%02d:%02d" % [m, s]
 
 func _format_extra_display(secs: float) -> String:
-	if GameManager.current_mode == GameManager.GameMode.ONLINE_MULTIPLAYER:
-		return "EXTRA: %ds" % int(ceil(secs))
 	return _format_bank_time(secs)
 
 func setup_players() -> void:
 	var mode = GameManager.current_mode
 	
-	# Reset turn timers to fresh match state (60-second personal extra time reserve per player)
+	# Reset turn timers to fresh match state (300-second / 5-minute personal extra time bank per player)
 	player_extra_duration = float(BackendConfig.PLAYER_EXTRA_TIME)
 	p1_extra_time_remaining = player_extra_duration
 	p2_extra_time_remaining = player_extra_duration
@@ -360,6 +361,17 @@ func setup_players() -> void:
 	active_turn_player = BoardData.Player.PLAYER_1
 	_last_turn_tick_sec = -1
 	_last_extra_tick_sec = -1
+	
+	if p1_perimeter_bar:
+		p1_perimeter_bar.max_time = player_extra_duration
+		p1_perimeter_bar.current_time = player_extra_duration
+		p1_perimeter_bar.is_active = true
+		p1_perimeter_bar.is_extra_time = false
+	if p2_perimeter_bar:
+		p2_perimeter_bar.max_time = player_extra_duration
+		p2_perimeter_bar.current_time = player_extra_duration
+		p2_perimeter_bar.is_active = false
+		p2_perimeter_bar.is_extra_time = false
 	
 	if mode == GameManager.GameMode.PLAYER_VS_AI:
 		# Player 1 (User)
@@ -435,6 +447,8 @@ func set_server_authoritative_time(remaining: float) -> void:
 	_update_timer_display()
 
 func update_server_turn_timer(turn_data: Dictionary) -> void:
+	if turn_data.has("active_player"):
+		active_turn_player = int(turn_data["active_player"])
 	if turn_data.has("turn_remaining_seconds"):
 		current_turn_remaining = float(turn_data["turn_remaining_seconds"])
 	if turn_data.has("is_extra_time"):
@@ -463,6 +477,16 @@ func update_server_turn_timer(turn_data: Dictionary) -> void:
 			else:
 				turn_timer_value.add_theme_color_override("font_color", Color(1.0, 0.5, 0.5))
 				
+	# Audio rule: Tick sound ONLY when remaining extra time <= 60s
+	if current_is_extra_time:
+		var active_extra = p1_extra_time_remaining if active_turn_player == BoardData.Player.PLAYER_1 else p2_extra_time_remaining
+		var ex_sec = int(ceil(active_extra))
+		if ex_sec <= 60 and ex_sec != _last_extra_tick_sec:
+			_last_extra_tick_sec = ex_sec
+			AudioManager.play_sfx("tick", 1.08)
+	else:
+		_last_extra_tick_sec = -1
+				
 	_update_turn_timer_display()
 	_update_timer_display()
 
@@ -485,6 +509,18 @@ func _update_turn_timer_display() -> void:
 		p2_radial.is_active = not is_p1_active
 		p2_radial.is_extra_time = (not is_p1_active and current_is_extra_time)
 		p2_radial.current_time = current_turn_remaining if not is_p1_active else turn_normal_duration
+		
+	if p1_perimeter_bar:
+		p1_perimeter_bar.is_active = is_p1_active
+		p1_perimeter_bar.is_extra_time = (is_p1_active and current_is_extra_time)
+		p1_perimeter_bar.max_time = player_extra_duration
+		p1_perimeter_bar.current_time = p1_extra_time_remaining
+		
+	if p2_perimeter_bar:
+		p2_perimeter_bar.is_active = not is_p1_active
+		p2_perimeter_bar.is_extra_time = (not is_p1_active and current_is_extra_time)
+		p2_perimeter_bar.max_time = player_extra_duration
+		p2_perimeter_bar.current_time = p2_extra_time_remaining
 		
 	if p1_extra_label:
 		p1_extra_label.text = _format_extra_display(p1_extra_time_remaining)
@@ -560,7 +596,8 @@ func _process(delta: float) -> void:
 			if active_turn_player == BoardData.Player.PLAYER_1:
 				p1_extra_time_remaining = maxf(0.0, p1_extra_time_remaining - delta)
 				var ex_sec = int(ceil(p1_extra_time_remaining))
-				if ex_sec != _last_extra_tick_sec:
+				# Audio rule: Clock ticking sound plays ONLY when 1 minute (<= 60s) remains!
+				if ex_sec <= 60 and ex_sec != _last_extra_tick_sec:
 					_last_extra_tick_sec = ex_sec
 					AudioManager.play_sfx("tick", 1.08)
 					
@@ -571,7 +608,8 @@ func _process(delta: float) -> void:
 			else:
 				p2_extra_time_remaining = maxf(0.0, p2_extra_time_remaining - delta)
 				var ex_sec = int(ceil(p2_extra_time_remaining))
-				if ex_sec != _last_extra_tick_sec:
+				# Audio rule: Clock ticking sound plays ONLY when 1 minute (<= 60s) remains!
+				if ex_sec <= 60 and ex_sec != _last_extra_tick_sec:
 					_last_extra_tick_sec = ex_sec
 					AudioManager.play_sfx("tick", 1.08)
 					
@@ -586,6 +624,7 @@ func _on_player_extra_time_expired(timed_out_player: int) -> void:
 	var winner = BoardData.Player.PLAYER_2 if timed_out_player == BoardData.Player.PLAYER_1 else BoardData.Player.PLAYER_1
 	var loser_name = p1_name_label.text if timed_out_player == BoardData.Player.PLAYER_1 else p2_name_label.text
 	_on_time_up_reached()
+	player_extra_time_expired.emit(timed_out_player)
 	GameManager.end_match(winner, "%s ran out of Extra Time!" % loser_name, true)
 
 func _on_time_up_reached() -> void:

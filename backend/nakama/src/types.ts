@@ -46,8 +46,8 @@ export enum EndReason {
 
 // Configurable Server-Authoritative Timer Constants
 export const MATCH_DURATION_SEC = 300;     // 5 minutes total match duration
-export const TURN_NORMAL_TIME_SEC = 7;     // 7 seconds per-turn normal time
-export const PLAYER_EXTRA_TIME_SEC = 60;   // 60 seconds personal reserve per player
+export const TURN_NORMAL_TIME_SEC = 10;    // 10 seconds per-turn normal time
+export const PLAYER_EXTRA_TIME_SEC = 300;  // 300 seconds (5 minutes) personal reserve per player
 
 export interface MoveRequest {
     from: number;

@@ -1,8 +1,8 @@
 (() => {
   // src/types.ts
   var MATCH_DURATION_SEC = 300;
-  var TURN_NORMAL_TIME_SEC = 7;
-  var PLAYER_EXTRA_TIME_SEC = 60;
+  var TURN_NORMAL_TIME_SEC = 10;
+  var PLAYER_EXTRA_TIME_SEC = 300;
 
   // src/rules_engine.ts
   var TOTAL_NODES = 37;

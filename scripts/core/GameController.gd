@@ -34,6 +34,7 @@ func _ready() -> void:
 	hud.hint_pressed.connect(_on_hint_pressed)
 	hud.reset_pressed.connect(_on_reset_pressed)
 	hud.time_expired.connect(_on_time_expired)
+	hud.player_extra_time_expired.connect(_on_hud_player_extra_time_expired)
 	hud.theme_changed.connect(_on_theme_changed)
 	
 	# Setup AI timer
@@ -471,6 +472,13 @@ func _on_time_expired() -> void:
 		reason = "Equal pieces remaining (%d each)." % state.p1_pieces
 		
 	_handle_game_over(winner, reason, true)
+
+func _on_hud_player_extra_time_expired(timed_out_p: int) -> void:
+	if not GameManager.is_playing():
+		return
+	var winner = BoardData.Player.PLAYER_2 if timed_out_p == BoardData.Player.PLAYER_1 else BoardData.Player.PLAYER_1
+	var loser_name = "Player 1" if timed_out_p == BoardData.Player.PLAYER_1 else ("AI Bot" if GameManager.current_mode == GameManager.GameMode.PLAYER_VS_AI else "Player 2")
+	_handle_game_over(winner, "%s ran out of Extra Time!" % loser_name, true)
 
 func _handle_game_over(winner: int, reason: String, is_time_up: bool = false) -> void:
 	ai_timer.stop()
