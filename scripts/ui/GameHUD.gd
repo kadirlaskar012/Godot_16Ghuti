@@ -25,6 +25,7 @@ signal theme_changed(theme_id: String)
 @onready var p2_name_label: Label = p2_panel.find_child("PlayerName", true, false)
 @onready var p2_subtitle: Label = p2_panel.find_child("SubTitle", true, false)
 @onready var p2_count_label: Label = p2_panel.find_child("PieceCount", true, false)
+@onready var p2_beads_container: HBoxContainer = p2_panel.find_child("P2Beads", true, false)
 @onready var p2_glow_border: ReferenceRect = p2_panel.find_child("GlowBorder", true, false)
 @onready var p2_radial: Control = p2_panel.find_child("P2RadialTimer", true, false)
 @onready var p2_extra_badge: PanelContainer = p2_panel.find_child("P2ExtraBadge", true, false)
@@ -36,6 +37,7 @@ signal theme_changed(theme_id: String)
 @onready var p1_name_label: Label = p1_panel.find_child("PlayerName", true, false)
 @onready var p1_subtitle: Label = p1_panel.find_child("SubTitle", true, false)
 @onready var p1_count_label: Label = p1_panel.find_child("PieceCount", true, false)
+@onready var p1_beads_container: HBoxContainer = p1_panel.find_child("P1Beads", true, false)
 @onready var p1_radial: Control = p1_panel.find_child("P1RadialTimer", true, false)
 @onready var p1_extra_badge: PanelContainer = p1_panel.find_child("P1ExtraBadge", true, false)
 @onready var p1_extra_label: Label = p1_panel.find_child("P1ExtraLabel", true, false)
@@ -46,6 +48,14 @@ signal theme_changed(theme_id: String)
 @onready var undo_btn: Button = find_child("UndoButton", true, false)
 @onready var hint_btn: Button = find_child("HintButton", true, false)
 @onready var reset_btn: Button = find_child("ResetButton", true, false)
+
+# Bead visual piece indicators (16 beads per player)
+var _p1_bead_panels: Array[Panel] = []
+var _p2_bead_panels: Array[Panel] = []
+var _bead_style_p1_act: StyleBoxFlat
+var _bead_style_p1_dim: StyleBoxFlat
+var _bead_style_p2_act: StyleBoxFlat
+var _bead_style_p2_dim: StyleBoxFlat
 
 # Test compatibility fields
 var turn_timer_box: Control
@@ -63,13 +73,13 @@ var _timer_pulse_tween: Tween
 var _last_pulse_second: int = -1
 var _active_toast: PanelContainer
 
-# 7-Second Normal Turn Timer & 5-Minute Personal Extra Time Reserves
+# 7-Second Normal Turn Timer & 60-Second Personal Extra Time Reserves
 var turn_normal_duration: float = float(BackendConfig.TURN_NORMAL_TIME) # 7.0s
-var player_extra_duration: float = 300.0 # 5 minutes default
+var player_extra_duration: float = float(BackendConfig.PLAYER_EXTRA_TIME) # 60.0s
 var current_turn_remaining: float = float(BackendConfig.TURN_NORMAL_TIME)
 var current_is_extra_time: bool = false
-var p1_extra_time_remaining: float = 300.0
-var p2_extra_time_remaining: float = 300.0
+var p1_extra_time_remaining: float = float(BackendConfig.PLAYER_EXTRA_TIME)
+var p2_extra_time_remaining: float = float(BackendConfig.PLAYER_EXTRA_TIME)
 var active_turn_player: int = BoardData.Player.PLAYER_1
 var _last_turn_tick_sec: int = -1
 var _last_extra_tick_sec: int = -1
@@ -130,8 +140,77 @@ func _ready() -> void:
 	
 	_update_sound_icon()
 	_update_theme_btn_text()
+	_setup_bead_indicators()
 	setup_players()
 	update_hud(GameManager.current_state)
+
+func _init_bead_styles() -> void:
+	if _bead_style_p1_act != null:
+		return
+	_bead_style_p1_act = StyleBoxFlat.new()
+	_bead_style_p1_act.bg_color = Color(0.92, 0.22, 0.22, 1.0)
+	_bead_style_p1_act.border_color = Color(1.0, 0.85, 0.35, 0.9)
+	_bead_style_p1_act.set_border_width_all(1)
+	_bead_style_p1_act.set_corner_radius_all(6)
+	
+	_bead_style_p1_dim = StyleBoxFlat.new()
+	_bead_style_p1_dim.bg_color = Color(0.25, 0.15, 0.15, 0.3)
+	_bead_style_p1_dim.border_color = Color(0.4, 0.3, 0.3, 0.25)
+	_bead_style_p1_dim.set_border_width_all(1)
+	_bead_style_p1_dim.set_corner_radius_all(6)
+	
+	_bead_style_p2_act = StyleBoxFlat.new()
+	_bead_style_p2_act.bg_color = Color(0.96, 0.93, 0.84, 1.0)
+	_bead_style_p2_act.border_color = Color(0.85, 0.72, 0.45, 0.9)
+	_bead_style_p2_act.set_border_width_all(1)
+	_bead_style_p2_act.set_corner_radius_all(6)
+	
+	_bead_style_p2_dim = StyleBoxFlat.new()
+	_bead_style_p2_dim.bg_color = Color(0.2, 0.2, 0.2, 0.3)
+	_bead_style_p2_dim.border_color = Color(0.4, 0.4, 0.4, 0.25)
+	_bead_style_p2_dim.set_border_width_all(1)
+	_bead_style_p2_dim.set_corner_radius_all(6)
+
+func _setup_bead_indicators() -> void:
+	_init_bead_styles()
+	if p1_beads_container:
+		for c in p1_beads_container.get_children():
+			c.queue_free()
+		_p1_bead_panels.clear()
+		for i in range(16):
+			var b = Panel.new()
+			b.custom_minimum_size = Vector2(10, 10)
+			b.add_theme_stylebox_override("panel", _bead_style_p1_act)
+			p1_beads_container.add_child(b)
+			_p1_bead_panels.append(b)
+			
+	if p2_beads_container:
+		for c in p2_beads_container.get_children():
+			c.queue_free()
+		_p2_bead_panels.clear()
+		for i in range(16):
+			var b = Panel.new()
+			b.custom_minimum_size = Vector2(10, 10)
+			b.add_theme_stylebox_override("panel", _bead_style_p2_act)
+			p2_beads_container.add_child(b)
+			_p2_bead_panels.append(b)
+
+func _update_beads(p1_count: int, p2_count: int) -> void:
+	for i in range(_p1_bead_panels.size()):
+		var b = _p1_bead_panels[i]
+		if is_instance_valid(b):
+			if i < p1_count:
+				b.add_theme_stylebox_override("panel", _bead_style_p1_act)
+			else:
+				b.add_theme_stylebox_override("panel", _bead_style_p1_dim)
+			
+	for i in range(_p2_bead_panels.size()):
+		var b = _p2_bead_panels[i]
+		if is_instance_valid(b):
+			if i < p2_count:
+				b.add_theme_stylebox_override("panel", _bead_style_p2_act)
+			else:
+				b.add_theme_stylebox_override("panel", _bead_style_p2_dim)
 
 func apply_safe_margins(top_val: float, _bottom_val: float) -> void:
 	if top_margin:
@@ -272,9 +351,8 @@ func _format_extra_display(secs: float) -> String:
 func setup_players() -> void:
 	var mode = GameManager.current_mode
 	
-	# Reset turn timers to fresh match state (5-minute personal time bank per player)
-	var bank_mins = SaveManager.settings.match_timer_minutes if (SaveManager.settings and SaveManager.settings.match_timer_minutes > 0) else 5
-	player_extra_duration = float(bank_mins * 60)
+	# Reset turn timers to fresh match state (60-second personal extra time reserve per player)
+	player_extra_duration = float(BackendConfig.PLAYER_EXTRA_TIME)
 	p1_extra_time_remaining = player_extra_duration
 	p2_extra_time_remaining = player_extra_duration
 	current_turn_remaining = turn_normal_duration
@@ -576,6 +654,8 @@ func update_hud(state: GameState) -> void:
 		_last_p2_count = state.p2_pieces
 	else:
 		p2_count_label.text = "%d Guti" % state.p2_pieces
+	
+	_update_beads(state.p1_pieces, state.p2_pieces)
 	
 	# Turn switch detection: reset 7s normal timer when turn switches to other player
 	var new_active_p = state.active_player

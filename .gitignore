@@ -3,6 +3,7 @@
 /android/
 
 # Build artifacts
+build/
 *.apk
 *.idsig
 *.aab

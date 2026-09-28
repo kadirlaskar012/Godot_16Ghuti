@@ -20,7 +20,7 @@ import { SecurityManager } from "./security";
 import { ServerWallet } from "./wallet";
 
 const TICK_RATE = 10; // 10 ticks per second
-const RECONNECT_GRACE_PERIOD_SEC = 60; // 60s reconnect grace
+const RECONNECT_GRACE_PERIOD_SEC = 45; // 45s reconnect grace per specification
 
 export const matchHandler: any = {
     matchInit(ctx: any, logger: any, nk: any, params: any) {
@@ -265,6 +265,34 @@ export const matchHandler: any = {
                 state.endReason = EndReason.FORFEIT;
                 this._finishMatch(state, dispatcher, nk);
                 return null;
+            }
+
+            // QUICK CHAT (Realtime Match Chat)
+            if (opCode === MatchOpCode.OP_CHAT_MESSAGE) {
+                if (SecurityManager.checkRateLimit(senderId + "_chat", 5, 3000)) {
+                    dispatcher.broadcastMessage(MatchOpCode.OP_CHAT_MESSAGE, msg.data, null, msg.sender);
+                }
+                continue;
+            }
+
+            // EMOJI REACTION (3 emoji per second max rate limit per spec)
+            if (opCode === MatchOpCode.OP_EMOJI_REACTION) {
+                if (SecurityManager.checkRateLimit(senderId + "_emoji", 3, 1000)) {
+                    dispatcher.broadcastMessage(MatchOpCode.OP_EMOJI_REACTION, msg.data, null, msg.sender);
+                }
+                continue;
+            }
+
+            // WEBRTC SIGNALING (1-to-1 Voice Chat signaling coordination via Nakama)
+            if (opCode === MatchOpCode.OP_WEBRTC_SIGNAL) {
+                dispatcher.broadcastMessage(MatchOpCode.OP_WEBRTC_SIGNAL, msg.data, null, msg.sender);
+                continue;
+            }
+
+            // VOICE STATUS (Mic state, speaking indicator)
+            if (opCode === MatchOpCode.OP_VOICE_STATUS) {
+                dispatcher.broadcastMessage(MatchOpCode.OP_VOICE_STATUS, msg.data, null, msg.sender);
+                continue;
             }
 
             // MOVE REQUEST (Server Authoritative Move Validation)

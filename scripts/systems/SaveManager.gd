@@ -4,6 +4,7 @@ extends Node
 ## Persists player data and settings locally to user://save_data.json
 
 const SAVE_PATH: String = "user://save_data.json"
+const LocalizationManager = preload("res://scripts/utils/LocalizationManager.gd")
 
 var settings: GameSettings = GameSettings.new()
 var player_data: PlayerData = PlayerData.new()
@@ -13,6 +14,10 @@ signal data_saved
 
 func _ready() -> void:
 	load_data()
+	LocalizationManager.setup_localization(settings.language)
+
+func save_game() -> void:
+	save_data()
 
 func save_data() -> void:
 	var payload = {

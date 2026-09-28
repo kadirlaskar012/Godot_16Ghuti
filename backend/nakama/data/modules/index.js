@@ -402,7 +402,7 @@
 
   // src/match_handler.ts
   var TICK_RATE = 10;
-  var RECONNECT_GRACE_PERIOD_SEC = 60;
+  var RECONNECT_GRACE_PERIOD_SEC = 45;
   var matchHandler = {
     matchInit(ctx, logger, nk, params) {
       const matchState = {
@@ -608,6 +608,26 @@
           state.endReason = "FORFEIT" /* FORFEIT */;
           this._finishMatch(state, dispatcher, nk);
           return null;
+        }
+        if (opCode === 11 /* OP_CHAT_MESSAGE */) {
+          if (SecurityManager.checkRateLimit(senderId + "_chat", 5, 3e3)) {
+            dispatcher.broadcastMessage(11 /* OP_CHAT_MESSAGE */, msg.data, null, msg.sender);
+          }
+          continue;
+        }
+        if (opCode === 12 /* OP_EMOJI_REACTION */) {
+          if (SecurityManager.checkRateLimit(senderId + "_emoji", 3, 1e3)) {
+            dispatcher.broadcastMessage(12 /* OP_EMOJI_REACTION */, msg.data, null, msg.sender);
+          }
+          continue;
+        }
+        if (opCode === 13 /* OP_WEBRTC_SIGNAL */) {
+          dispatcher.broadcastMessage(13 /* OP_WEBRTC_SIGNAL */, msg.data, null, msg.sender);
+          continue;
+        }
+        if (opCode === 14 /* OP_VOICE_STATUS */) {
+          dispatcher.broadcastMessage(14 /* OP_VOICE_STATUS */, msg.data, null, msg.sender);
+          continue;
         }
         if (opCode === 1 /* OP_MOVE_REQUEST */) {
           let move;

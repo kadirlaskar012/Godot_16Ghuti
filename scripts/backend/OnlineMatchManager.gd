@@ -27,7 +27,11 @@ enum MatchOpCode {
 	OP_TIMER_TICK = 7,
 	OP_MATCH_OVER = 8,
 	OP_PLAYER_RECONNECTED = 9,
-	OP_PLAYER_DISCONNECTED = 10
+	OP_PLAYER_DISCONNECTED = 10,
+	OP_CHAT_MESSAGE = 11,
+	OP_EMOJI_REACTION = 12,
+	OP_WEBRTC_SIGNAL = 13,
+	OP_VOICE_STATUS = 14
 }
 
 signal match_started(assigned_player: int, opponent_name: String)
@@ -38,6 +42,10 @@ signal timer_ticked(remaining_seconds: int)
 signal turn_timer_ticked(timer_payload: Dictionary)
 signal match_finished(result_data: Dictionary)
 signal reconnect_state_changed(state: ReconnectState)
+signal chat_received(sender_name: String, message_text: String)
+signal emoji_received(player_id: int, emoji_symbol: String)
+signal webrtc_signal_received(signal_payload: Dictionary)
+signal voice_status_received(status_payload: Dictionary)
 
 var current_match_id: String = ""
 var local_player_index: int = BoardData.Player.PLAYER_1
@@ -172,6 +180,43 @@ func _process_socket_message(text: String) -> void:
 				_set_reconnect_state(ReconnectState.RECONNECTED)
 			MatchOpCode.OP_PLAYER_DISCONNECTED:
 				pass
+			MatchOpCode.OP_CHAT_MESSAGE:
+				var sender = str(payload.get("sender_name", "Opponent"))
+				var text_msg = str(payload.get("text", ""))
+				chat_received.emit(sender, text_msg)
+			MatchOpCode.OP_EMOJI_REACTION:
+				var p_idx = int(payload.get("player_index", 2))
+				var em = str(payload.get("emoji", ""))
+				emoji_received.emit(p_idx, em)
+			MatchOpCode.OP_WEBRTC_SIGNAL:
+				webrtc_signal_received.emit(payload)
+			MatchOpCode.OP_VOICE_STATUS:
+				voice_status_received.emit(payload)
+
+func send_chat_message(message_text: String) -> void:
+	var payload = {
+		"sender_name": SaveManager.player_data.player_name if (SaveManager and SaveManager.player_data) else "Player",
+		"text": message_text
+	}
+	_send_match_data(MatchOpCode.OP_CHAT_MESSAGE, payload)
+
+func send_emoji_reaction(emoji_symbol: String) -> void:
+	var payload = {
+		"player_index": local_player_index,
+		"emoji": emoji_symbol
+	}
+	_send_match_data(MatchOpCode.OP_EMOJI_REACTION, payload)
+
+func send_webrtc_signal(signal_data: Dictionary) -> void:
+	_send_match_data(MatchOpCode.OP_WEBRTC_SIGNAL, signal_data)
+
+func send_voice_status(is_mic_on: bool, is_speaking: bool) -> void:
+	var payload = {
+		"player_index": local_player_index,
+		"is_mic_on": is_mic_on,
+		"is_speaking": is_speaking
+	}
+	_send_match_data(MatchOpCode.OP_VOICE_STATUS, payload)
 
 func _attempt_reconnect() -> void:
 	_reconnect_attempts += 1

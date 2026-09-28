@@ -186,11 +186,20 @@ theme_override_colors/font_color = Color(0.85, 0.78, 0.68, 1)
 theme_override_font_sizes/font_size = 20
 text = "IVORY OPPONENT"
 
-[node name="PieceCount" type="Label" parent="P2Card/Margin/HBox/VBox"]
+[node name="PieceRow" type="HBoxContainer" parent="P2Card/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PieceCount" type="Label" parent="P2Card/Margin/HBox/VBox/PieceRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 24
 text = "16 Guti"
+
+[node name="P2Beads" type="HBoxContainer" parent="P2Card/Margin/HBox/VBox/PieceRow"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 3
 
 [node name="TimerBox" type="HBoxContainer" parent="P2Card/Margin/HBox"]
 layout_mode = 2
@@ -281,11 +290,20 @@ theme_override_colors/font_color = Color(1, 0.55, 0.55, 1)
 theme_override_font_sizes/font_size = 20
 text = "RED (YOU)"
 
-[node name="PieceCount" type="Label" parent="P1Card/Margin/HBox/VBox"]
+[node name="PieceRow" type="HBoxContainer" parent="P1Card/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PieceCount" type="Label" parent="P1Card/Margin/HBox/VBox/PieceRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
 theme_override_font_sizes/font_size = 24
 text = "16 Guti"
+
+[node name="P1Beads" type="HBoxContainer" parent="P1Card/Margin/HBox/VBox/PieceRow"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 3
 
 [node name="TimerBox" type="HBoxContainer" parent="P1Card/Margin/HBox"]
 layout_mode = 2

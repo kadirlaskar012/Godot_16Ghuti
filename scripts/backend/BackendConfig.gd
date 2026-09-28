@@ -21,7 +21,7 @@ const MIN_SUPPORTED_VERSION: String = "1.0.0"
 
 # Server-Authoritative Timer Configuration
 const MATCH_DURATION: int = 300       # 5 minutes default total match duration
-const TURN_NORMAL_TIME: int = 10      # 10 seconds per-turn normal time
+const TURN_NORMAL_TIME: int = 7       # 7 seconds per-turn normal time
 const PLAYER_EXTRA_TIME: int = 60     # 60 seconds personal reserve per player
 
 # Environment Definitions

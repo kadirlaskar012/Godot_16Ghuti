@@ -18,7 +18,11 @@ export enum MatchOpCode {
     OP_TIMER_TICK = 7,
     OP_MATCH_OVER = 8,
     OP_PLAYER_RECONNECTED = 9,
-    OP_PLAYER_DISCONNECTED = 10
+    OP_PLAYER_DISCONNECTED = 10,
+    OP_CHAT_MESSAGE = 11,
+    OP_EMOJI_REACTION = 12,
+    OP_WEBRTC_SIGNAL = 13,
+    OP_VOICE_STATUS = 14
 }
 
 export enum MatchStatus {

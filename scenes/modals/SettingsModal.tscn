@@ -1,9 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://csettingsmodal01"]
+[gd_scene load_steps=8 format=3 uid="uid://csettingsmodal01"]
 
 [ext_resource type="Script" path="res://scripts/ui/SettingsModal.gd" id="1_set"]
-[ext_resource type="Texture2D" path="res://assets/textures/board_wood_classic.jpg" id="2_classic"]
-[ext_resource type="Texture2D" path="res://assets/textures/board_wood_mahogany.jpg" id="3_mahogany"]
-[ext_resource type="Texture2D" path="res://assets/textures/board_wood_light.jpg" id="4_maple"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
 bg_color = Color(0.12, 0.07, 0.03, 0.98)
@@ -16,10 +13,10 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
-content_margin_left = 36.0
-content_margin_top = 32.0
-content_margin_right = 36.0
-content_margin_bottom = 32.0
+content_margin_left = 32.0
+content_margin_top = 28.0
+content_margin_right = 32.0
+content_margin_bottom = 28.0
 shadow_size = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
@@ -35,25 +32,6 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_theme"]
-bg_color = Color(0.12, 0.08, 0.04, 0.85)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.5, 0.4, 0.25, 0.7)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
-bg_color = Color(0.9, 0.7, 0.15, 0.95)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_cross"]
 bg_color = Color(0.18, 0.11, 0.06, 0.9)
 border_width_left = 2
@@ -67,6 +45,22 @@ corner_radius_bottom_right = 28
 corner_radius_bottom_left = 28
 shadow_size = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_section"]
+bg_color = Color(0.2, 0.12, 0.06, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.75, 0.58, 0.25, 0.5)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+
 [node name="SettingsModal" type="CanvasLayer"]
 process_mode = 3
 layer = 20
@@ -78,7 +72,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.7)
+color = Color(0, 0, 0, 0.75)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -88,13 +82,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(980, 840)
+custom_minimum_size = Vector2(980, 1200)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
 
 [node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 18
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="HeaderHBox" type="HBoxContainer" parent="CenterContainer/Panel/VBox"]
@@ -125,101 +119,260 @@ text = "✕"
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/VBox"]
 layout_mode = 2
 
-[node name="TogglesVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
-layout_mode = 2
-theme_override_constants/separation = 14
-
-[node name="SoundRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/TogglesVBox"]
-layout_mode = 2
-
-[node name="SoundLabel" type="Label" parent="CenterContainer/Panel/VBox/TogglesVBox/SoundRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
-theme_override_font_sizes/font_size = 34
-text = "🔊 Sound Effects"
-
-[node name="SoundToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/TogglesVBox/SoundRow"]
-custom_minimum_size = Vector2(140, 62)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "ON  ●"
-
-[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/TogglesVBox"]
-layout_mode = 2
-
-[node name="MusicLabel" type="Label" parent="CenterContainer/Panel/VBox/TogglesVBox/MusicRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
-theme_override_font_sizes/font_size = 34
-text = "🎵 Background Music"
-
-[node name="MusicToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/TogglesVBox/MusicRow"]
-custom_minimum_size = Vector2(140, 62)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "ON  ●"
-
-[node name="HapticsRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/TogglesVBox"]
-layout_mode = 2
-
-[node name="HapticsLabel" type="Label" parent="CenterContainer/Panel/VBox/TogglesVBox/HapticsRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
-theme_override_font_sizes/font_size = 34
-text = "📳 Haptic Vibration"
-
-[node name="HapticsToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/TogglesVBox/HapticsRow"]
-custom_minimum_size = Vector2(140, 62)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "ON  ●"
-
-[node name="CaptureRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/TogglesVBox"]
-layout_mode = 2
-
-[node name="CaptureLabel" type="Label" parent="CenterContainer/Panel/VBox/TogglesVBox/CaptureRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
-theme_override_font_sizes/font_size = 34
-text = "⚔️ Compulsory Capture"
-
-[node name="CaptureToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/TogglesVBox/CaptureRow"]
-custom_minimum_size = Vector2(140, 62)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "ON  ●"
-
-[node name="HSeparator2" type="HSeparator" parent="CenterContainer/Panel/VBox"]
-layout_mode = 2
-
-[node name="OptionsVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="TimerOption" type="OptionButton" parent="CenterContainer/Panel/VBox/OptionsVBox"]
-custom_minimum_size = Vector2(0, 78)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-
-[node name="DiffOption" type="OptionButton" parent="CenterContainer/Panel/VBox/OptionsVBox"]
-custom_minimum_size = Vector2(0, 78)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-
-[node name="Spacer" type="Control" parent="CenterContainer/Panel/VBox"]
-custom_minimum_size = Vector2(0, 16)
+[node name="Scroll" type="ScrollContainer" parent="CenterContainer/Panel/VBox"]
+custom_minimum_size = Vector2(0, 880)
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ContentVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="SecGameplay" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_section")
+text = "🎮  GAMEPLAY"
+
+[node name="DiffOption" type="OptionButton" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+
+[node name="TimerOption" type="OptionButton" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+
+[node name="CaptureRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="CaptureLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/CaptureRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "⚔️ Compulsory Capture"
+
+[node name="CaptureToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/CaptureRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ON  ●"
+
+[node name="HapticsRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="HapticsLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/HapticsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "📳 Haptic Vibration"
+
+[node name="HapticsToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/HapticsRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ON  ●"
+
+[node name="SecAudio" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_section")
+text = "🔊  AUDIO"
+
+[node name="SoundRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="SoundLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/SoundRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "🔊 Sound Effects"
+
+[node name="SoundToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/SoundRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ON  ●"
+
+[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "🎵 Background Music"
+
+[node name="MusicToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/MusicRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ON  ●"
+
+[node name="SecVoice" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_section")
+text = "🎙️  VOICE & CHAT (ONLINE MULTIPLAYER)"
+
+[node name="VoiceChatRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="VoiceChatLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/VoiceChatRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "🎙️ Real-time Voice Chat"
+
+[node name="VoiceChatToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/VoiceChatRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "○  OFF"
+
+[node name="MicMuteRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="MicMuteLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/MicMuteRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "🎤 Mute Microphone"
+
+[node name="MicMuteToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/MicMuteRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ON  ●"
+
+[node name="SpeakerMuteRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="SpeakerMuteLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/SpeakerMuteRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "🔈 Mute Speaker"
+
+[node name="SpeakerMuteToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/SpeakerMuteRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "○  OFF"
+
+[node name="OppVoiceMuteRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="OppVoiceMuteLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/OppVoiceMuteRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "🔇 Mute Opponent Voice"
+
+[node name="OppVoiceMuteToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/OppVoiceMuteRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "○  OFF"
+
+[node name="OppChatMuteRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="OppChatMuteLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/OppChatMuteRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "💬 Mute Opponent Chat"
+
+[node name="OppChatMuteToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/OppChatMuteRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "○  OFF"
+
+[node name="QuickChatRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="QuickChatLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/QuickChatRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "💬 Quick Messages"
+
+[node name="QuickChatToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/QuickChatRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ON  ●"
+
+[node name="EmojiRow" type="HBoxContainer" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="EmojiLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/EmojiRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 30
+text = "😀 Emoji Reactions"
+
+[node name="EmojiToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox/EmojiRow"]
+custom_minimum_size = Vector2(130, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ON  ●"
+
+[node name="SecLang" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_section")
+text = "🌐  LANGUAGE / ভাষা"
+
+[node name="LangOption" type="OptionButton" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+
+[node name="SecAbout" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_section")
+text = "ℹ️  ABOUT & ACCOUNT"
+
+[node name="AboutLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.8, 0.7, 1)
+theme_override_font_sizes/font_size = 24
+text = "16 GUTI — SHOLO GUTI v1.0.0 (Build 100)"
+
+[node name="BackendStatusLabel" type="Label" parent="CenterContainer/Panel/VBox/Scroll/ContentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+text = "Backend: Nakama Production Server Architecture"
 
 [node name="CloseButton" type="Button" parent="CenterContainer/Panel/VBox"]
-custom_minimum_size = Vector2(460, 92)
+custom_minimum_size = Vector2(460, 84)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 text = "SAVE & CLOSE"

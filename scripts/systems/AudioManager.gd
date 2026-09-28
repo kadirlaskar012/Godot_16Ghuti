@@ -22,9 +22,9 @@ var sounds: Dictionary = {
 }
 
 func _ready() -> void:
-	# Create music player
+	# Create music player on Game bus
 	music_player = AudioStreamPlayer.new()
-	music_player.bus = "Master"
+	music_player.bus = "Game"
 	music_player.volume_db = -8.0
 	add_child(music_player)
 	
@@ -44,7 +44,7 @@ func _ready() -> void:
 				music_player.play()
 	)
 	
-	# Create pool of SFX players with custom acoustic mix levels
+	# Create pool of SFX players on Game bus with custom acoustic mix levels
 	var volume_offsets = {
 		"move": 1.5,
 		"capture": 3.0,
@@ -63,11 +63,12 @@ func _ready() -> void:
 			continue
 		var p = AudioStreamPlayer.new()
 		p.stream = sounds[sfx_name]
-		p.bus = "Master"
+		p.bus = "Game"
 		p.volume_db = volume_offsets.get(sfx_name, 0.0)
 		add_child(p)
 		sfx_players[sfx_name] = p
 		
+	sync_all_bus_settings()
 	start_bgm()
 
 func play_sfx(sound_name: String, pitch: float = 1.0) -> void:
@@ -123,6 +124,29 @@ func update_audio_settings() -> void:
 				play_music()
 		else:
 			stop_music()
+		sync_all_bus_settings()
+
+func sync_all_bus_settings() -> void:
+	var sm = get_node_or_null("/root/SaveManager")
+	if not sm or not sm.settings:
+		return
+	var s = sm.settings
+	set_bus_volume("Master", s.master_volume)
+	set_bus_volume("Game", s.game_volume)
+	set_bus_volume("Voice", s.voice_volume)
+	set_bus_mute("Master", not (s.sound_enabled or s.music_enabled))
+	set_bus_mute("Voice", s.speaker_muted or s.opponent_voice_muted)
+
+func set_bus_volume(bus_name: String, linear: float) -> void:
+	var idx = AudioServer.get_bus_index(bus_name)
+	if idx >= 0:
+		var db = linear_to_db(clampf(linear, 0.001, 1.0))
+		AudioServer.set_bus_volume_db(idx, db)
+
+func set_bus_mute(bus_name: String, mute: bool) -> void:
+	var idx = AudioServer.get_bus_index(bus_name)
+	if idx >= 0:
+		AudioServer.set_bus_mute(idx, mute)
 
 func start_bgm() -> void:
 	play_music()
