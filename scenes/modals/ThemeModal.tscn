@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cthememodal16guti"]
+[gd_scene format=3 uid="uid://whaiwssgq5v3"]
 
 [ext_resource type="Script" path="res://scripts/ui/ThemeModal.gd" id="1_thm"]
 [ext_resource type="Texture2D" path="res://assets/textures/board_wood_classic.jpg" id="2_b_classic"]

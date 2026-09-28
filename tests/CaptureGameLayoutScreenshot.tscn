@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://capgamelayout01"]
+[gd_scene format=3 uid="uid://qopalxco4xto"]
 
 [ext_resource type="Script" path="res://tests/CaptureGameLayoutScreenshot.gd" id="1_test"]
 

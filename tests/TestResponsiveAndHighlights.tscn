@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://testresphl001"]
+[gd_scene format=3 uid="uid://dw6de54o7siyy"]
 
 [ext_resource type="Script" path="res://tests/TestResponsiveAndHighlights.gd" id="1_test"]
 

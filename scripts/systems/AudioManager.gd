@@ -28,18 +28,21 @@ func _ready() -> void:
 	music_player.volume_db = -8.0
 	add_child(music_player)
 	
-	# Seamless music restart when track finishes
-	music_player.finished.connect(func():
-		var sm = get_node_or_null("/root/SaveManager")
-		var is_enabled = sm.settings.music_enabled if (sm and sm.settings) else true
-		if is_enabled:
-			music_player.play()
-	)
-	
-	# Configure loop on BGM stream if supported
+	# Configure loop on BGM stream
 	var bgm_stream = sounds.get("bgm")
 	if bgm_stream and bgm_stream is AudioStreamWAV:
 		bgm_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		bgm_stream.loop_begin = 0
+		bgm_stream.loop_end = -1
+		
+	# Fallback restart ONLY if stream is not already natively looping
+	music_player.finished.connect(func():
+		var sm = get_node_or_null("/root/SaveManager")
+		var is_enabled = sm.settings.music_enabled if (sm and sm.settings) else true
+		if is_enabled and music_player.stream:
+			if music_player.stream is AudioStreamWAV and music_player.stream.loop_mode == AudioStreamWAV.LOOP_DISABLED:
+				music_player.play()
+	)
 	
 	# Create pool of SFX players with custom acoustic mix levels
 	var volume_offsets = {
@@ -88,14 +91,24 @@ func play_music(music_name: String = "bgm") -> void:
 		music_on = sm.settings.music_enabled
 		
 	if not music_on:
-		music_player.stop()
+		if music_player and music_player.playing:
+			music_player.stop()
 		return
 		
 	if sounds.has(music_name):
 		var stream = sounds[music_name]
 		if stream is AudioStreamWAV:
 			stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
-		music_player.stream = stream
+			stream.loop_begin = 0
+			stream.loop_end = -1
+			
+		# If this music is ALREADY playing smoothly, do not interrupt or re-assign stream!
+		if music_player.playing and music_player.stream == stream:
+			return
+			
+		if music_player.stream != stream:
+			music_player.stream = stream
+			
 		if not music_player.playing:
 			music_player.play()
 

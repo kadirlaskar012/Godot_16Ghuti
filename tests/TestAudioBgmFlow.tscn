@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dmy1yi5vtkxye"]
+
+[ext_resource type="Script" path="res://tests/TestAudioBgmFlow.gd" id="1_test"]
+
+[node name="TestAudioBgmFlow" type="Node"]
+script = ExtResource("1_test")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctestthemesettings01"]
+[gd_scene format=3 uid="uid://c7i8tntnq6daq"]
 
 [ext_resource type="Script" path="res://tests/TestThemeAndSettingsFlow.gd" id="1_test"]
 

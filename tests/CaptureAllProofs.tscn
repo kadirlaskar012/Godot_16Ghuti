@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://capallproofs01"]
+[gd_scene format=3 uid="uid://c0cskq5e2yw41"]
 
 [ext_resource type="Script" path="res://tests/CaptureAllProofs.gd" id="1_test"]
 
