@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccap9screens01"]
+
+[ext_resource type="Script" path="res://tests/Capture9ScreensFlow.gd" id="1_cap"]
+
+[node name="Capture9ScreensFlow" type="Node"]
+script = ExtResource("1_cap")

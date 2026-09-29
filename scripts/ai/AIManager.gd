@@ -7,7 +7,8 @@ extends RefCounted
 enum Difficulty {
 	EASY = 0,
 	MEDIUM = 1,
-	HARD = 2
+	HARD = 2,
+	EXPERT = 3
 }
 
 # Central positional weights (higher connectivity = greater strategic advantage)
@@ -48,6 +49,8 @@ static func get_best_move(state: GameState, difficulty: int, ai_player: int = Bo
 			return _get_medium_move(state, legal_moves, ai_player)
 		Difficulty.HARD:
 			return _get_hard_move(state, legal_moves, ai_player)
+		Difficulty.EXPERT:
+			return _get_expert_move(state, legal_moves, ai_player)
 		_:
 			return _get_medium_move(state, legal_moves, ai_player)
 
@@ -118,6 +121,31 @@ static func _get_hard_move(state: GameState, legal_moves: Array[Dictionary], ai_
 		RulesEngine.apply_move(sim_state, move, false)
 		
 		var score: float = _minimax(sim_state, 2, alpha, beta, false, ai_player)
+		
+		if score > best_score:
+			best_score = score
+			best_moves.clear()
+			best_moves.append(move)
+			alpha = max(alpha, best_score)
+		elif abs(score - best_score) < 0.001:
+			best_moves.append(move)
+			
+	return best_moves[randi() % best_moves.size()]
+
+# EXPERT: Minimax with Alpha-Beta pruning (depth 3 full lookahead, strictly optimal)
+static func _get_expert_move(state: GameState, legal_moves: Array[Dictionary], ai_player: int) -> Dictionary:
+	var best_score: float = -999999.0
+	var best_moves: Array[Dictionary] = []
+	var alpha: float = -999999.0
+	var beta: float = 999999.0
+	
+	var ordered_moves: Array[Dictionary] = _order_moves(legal_moves)
+	
+	for move in ordered_moves:
+		var sim_state: GameState = state.clone()
+		RulesEngine.apply_move(sim_state, move, false)
+		
+		var score: float = _minimax(sim_state, 3, alpha, beta, false, ai_player)
 		
 		if score > best_score:
 			best_score = score

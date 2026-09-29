@@ -28,6 +28,26 @@ func _draw() -> void:
 			bevel_color = Color(1.0, 0.85, 0.48, 0.45)
 			groove_color = Color(0.20, 0.06, 0.04, 0.94)
 			crevice_color = Color(0.08, 0.02, 0.01, 0.98)
+		"royal_marble":
+			# Royal Marble: polished gold bevel on dark luxury marble
+			bevel_color = Color(1.0, 0.88, 0.45, 0.75)
+			groove_color = Color(0.15, 0.15, 0.18, 0.96)
+			crevice_color = Color(0.05, 0.05, 0.08, 0.98)
+		"dark_mystic":
+			# Dark Mystic: neon cyan luminescence over dark midnight slate
+			bevel_color = Color(0.4, 0.85, 1.0, 0.7)
+			groove_color = Color(0.08, 0.12, 0.22, 0.96)
+			crevice_color = Color(0.02, 0.04, 0.08, 0.98)
+		"golden_palace":
+			# Golden Palace: radiant warm 24k gold leaf grooves
+			bevel_color = Color(1.0, 0.95, 0.7, 0.8)
+			groove_color = Color(0.35, 0.22, 0.05, 0.96)
+			crevice_color = Color(0.18, 0.10, 0.02, 0.98)
+		"green_forest":
+			# Green Forest: glowing emerald dew lines on jade wood
+			bevel_color = Color(0.65, 1.0, 0.75, 0.7)
+			groove_color = Color(0.06, 0.20, 0.10, 0.95)
+			crevice_color = Color(0.02, 0.10, 0.04, 0.98)
 		_: # classic_wood
 			bevel_color = Color(0.95, 0.82, 0.52, 0.36)
 			groove_color = Color(0.16, 0.08, 0.03, 0.92)

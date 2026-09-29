@@ -19,6 +19,8 @@ enum MatchState {
 
 var current_mode: int = GameMode.PLAYER_VS_AI
 var current_difficulty: int = AIManager.Difficulty.MEDIUM
+var current_theme: String = "classic_wood"
+var player_ghuti_color: int = BoardData.Player.PLAYER_1
 var current_state: GameState
 var match_state: int = MatchState.READY
 
@@ -63,9 +65,16 @@ func resume_match() -> void:
 		match_state = MatchState.PLAYING
 		state_changed.emit()
 
-func start_match(mode: int = GameMode.PLAYER_VS_AI, difficulty: int = AIManager.Difficulty.MEDIUM) -> void:
+func start_match(mode: int = GameMode.PLAYER_VS_AI, difficulty: int = AIManager.Difficulty.MEDIUM, theme: String = "", player_color: int = BoardData.Player.PLAYER_1) -> void:
 	current_mode = mode
 	current_difficulty = difficulty
+	player_ghuti_color = player_color
+	if theme != "":
+		current_theme = theme
+		var sm_inst = get_node_or_null("/root/SaveManager")
+		if sm_inst and sm_inst.settings:
+			sm_inst.settings.board_theme = theme
+			sm_inst.save_settings()
 	current_state.reset_to_start()
 	
 	match_start_time = Time.get_ticks_msec() / 1000.0
@@ -104,7 +113,14 @@ func end_match(winner: int, reason: String, is_time_out: bool = false) -> void:
 	if sm and sm.player_data:
 		var p_data = sm.player_data
 		if current_mode == GameMode.PLAYER_VS_AI:
-			var diff_name = "AI Bot (%s)" % ("Easy" if current_difficulty == AIManager.Difficulty.EASY else ("Medium" if current_difficulty == AIManager.Difficulty.MEDIUM else "Hard"))
+			var diff_str = "Easy"
+			if current_difficulty == AIManager.Difficulty.MEDIUM:
+				diff_str = "Medium"
+			elif current_difficulty == AIManager.Difficulty.HARD:
+				diff_str = "Hard"
+			elif current_difficulty == AIManager.Difficulty.EXPERT:
+				diff_str = "Expert"
+			var diff_name = "AI Bot (%s)" % diff_str
 			if winner == BoardData.Player.PLAYER_1:
 				p_data.record_win(current_difficulty, p1_match_captures, match_duration, diff_name, "VS AI")
 			elif winner == BoardData.Player.PLAYER_2:

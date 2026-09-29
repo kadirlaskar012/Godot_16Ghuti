@@ -97,7 +97,7 @@ const AVATAR_TEXTURES: Array[Texture2D] = [
 	preload("res://assets/textures/avatar_princess.png"),
 	preload("res://assets/textures/avatar_mystic.png"),
 ]
-const AVATAR_AI = preload("res://assets/textures/avatar_ai.png")
+const AVATAR_AI = preload("res://assets/textures/mascot_robot_ai.jpg")
 
 var _last_p1_count: int = 16
 var _last_p2_count: int = 16
@@ -336,7 +336,7 @@ func _animate_piece_count_change(label: Label, new_count: int) -> void:
 	var tw = create_tween()
 	tw.tween_property(label, "scale", Vector2(1.30, 1.30), 0.10).set_trans(Tween.TRANS_QUAD)
 	tw.tween_callback(func():
-		label.text = "%d Guti" % new_count
+		label.text = "%d Ghuti" % new_count
 	)
 	tw.tween_property(label, "scale", Vector2(1.0, 1.0), 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
@@ -381,7 +381,9 @@ func setup_players() -> void:
 		p1_subtitle.text = "RED (YOU)"
 		
 		# Player 2 (AI Bot) - High resolution AI Grandmaster
-		var diff_str = ["EASY", "MEDIUM", "HARD"][GameManager.current_difficulty]
+		var diff_names = ["EASY", "MEDIUM", "HARD", "EXPERT"]
+		var d_idx = clampi(GameManager.current_difficulty, 0, diff_names.size() - 1)
+		var diff_str = diff_names[d_idx]
 		p2_name_label.text = "AI BOT (%s)" % diff_str
 		p2_avatar.texture = AVATAR_AI
 		p2_subtitle.text = "IVORY OPPONENT"
@@ -686,13 +688,13 @@ func update_hud(state: GameState) -> void:
 		_animate_piece_count_change(p1_count_label, state.p1_pieces)
 		_last_p1_count = state.p1_pieces
 	else:
-		p1_count_label.text = "%d Guti" % state.p1_pieces
+		p1_count_label.text = "%d Ghuti" % state.p1_pieces
 		
 	if state.p2_pieces != _last_p2_count:
 		_animate_piece_count_change(p2_count_label, state.p2_pieces)
 		_last_p2_count = state.p2_pieces
 	else:
-		p2_count_label.text = "%d Guti" % state.p2_pieces
+		p2_count_label.text = "%d Ghuti" % state.p2_pieces
 	
 	_update_beads(state.p1_pieces, state.p2_pieces)
 	

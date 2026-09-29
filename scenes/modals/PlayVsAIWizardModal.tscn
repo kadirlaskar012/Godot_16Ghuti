@@ -1,0 +1,875 @@
+[gd_scene load_steps=18 format=3 uid="uid://cwizard16ghuti01"]
+
+[ext_resource type="Script" path="res://scripts/ui/PlayVsAIWizardModal.gd" id="1_wiz"]
+[ext_resource type="Texture2D" path="res://assets/textures/tabletop_bg.jpg" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/textures/vignette_overlay.png" id="3_vig"]
+[ext_resource type="Texture2D" path="res://assets/textures/mascot_robot_ai.jpg" id="4_mascot"]
+[ext_resource type="Texture2D" path="res://assets/textures/tray_ghuti_red.jpg" id="5_tray_red"]
+[ext_resource type="Texture2D" path="res://assets/textures/tray_ghuti_white.jpg" id="6_tray_white"]
+[ext_resource type="Texture2D" path="res://assets/textures/theme_classic_wood.jpg" id="7_th_wood"]
+[ext_resource type="Texture2D" path="res://assets/textures/theme_royal_marble.jpg" id="8_th_marble"]
+[ext_resource type="Texture2D" path="res://assets/textures/theme_dark_mystic.jpg" id="9_th_mystic"]
+[ext_resource type="Texture2D" path="res://assets/textures/theme_golden_palace.jpg" id="10_th_palace"]
+[ext_resource type="Texture2D" path="res://assets/textures/theme_green_forest.jpg" id="11_th_forest"]
+[ext_resource type="Texture2D" path="res://assets/textures/avatar_warrior.png" id="12_av"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.14, 0.09, 0.04, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.7, 0.35, 0.85)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 12
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_gold"]
+bg_color = Color(0.82, 0.56, 0.16, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.92, 0.65, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 14
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header_pill"]
+bg_color = Color(0.12, 0.08, 0.04, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.35, 0.8)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
+bg_color = Color(0.24, 0.15, 0.06, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.85, 0.35, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sel_badge"]
+bg_color = Color(0.15, 0.65, 0.25, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="PlayVsAIWizardModal" type="CanvasLayer"]
+process_mode = 3
+layer = 12
+script = ExtResource("1_wiz")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Vignette" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 0.6)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_vig")
+expand_mode = 1
+
+[node name="SafeArea" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 52
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 44
+
+[node name="Layout" type="VBoxContainer" parent="SafeArea"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HeaderBar" type="HBoxContainer" parent="SafeArea/Layout"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="WizardBackButton" type="Button" parent="SafeArea/Layout/HeaderBar"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.7, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
+text = "❮"
+
+[node name="StepTitleLabel" type="Label" parent="SafeArea/Layout/HeaderBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.88, 0.45, 1)
+theme_override_font_sizes/font_size = 40
+text = "SELECT DIFFICULTY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HeaderSpacer" type="Control" parent="SafeArea/Layout/HeaderBar"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="SafeArea/Layout"]
+layout_mode = 2
+
+[node name="Step1_Difficulty" type="VBoxContainer" parent="SafeArea/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="MascotContainer" type="CenterContainer" parent="SafeArea/Layout/Step1_Difficulty"]
+layout_mode = 2
+
+[node name="MascotPanel" type="PanelContainer" parent="SafeArea/Layout/Step1_Difficulty/MascotContainer"]
+custom_minimum_size = Vector2(340, 340)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="MascotTexture" type="TextureRect" parent="SafeArea/Layout/Step1_Difficulty/MascotContainer/MascotPanel"]
+layout_mode = 2
+texture = ExtResource("4_mascot")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="RobotSpeech" type="Label" parent="SafeArea/Layout/Step1_Difficulty"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.88, 0.75, 1)
+theme_override_font_sizes/font_size = 28
+text = "Ready to test your tactical skills?"
+horizontal_alignment = 1
+
+[node name="DiffCards" type="VBoxContainer" parent="SafeArea/Layout/Step1_Difficulty"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DiffEasyBtn" type="Button" parent="SafeArea/Layout/Step1_Difficulty/DiffCards"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffEasyBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_right = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="SignalBar" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffEasyBtn/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 32
+text = "●○○○"
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffEasyBtn/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffEasyBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "EASY"
+
+[node name="Desc" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffEasyBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.75, 0.65, 1)
+theme_override_font_sizes/font_size = 22
+text = "Relaxed pace, perfect for beginners"
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffEasyBtn/HBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 32
+text = "✔"
+
+[node name="DiffMedBtn" type="Button" parent="SafeArea/Layout/Step1_Difficulty/DiffCards"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffMedBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_right = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="SignalBar" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffMedBtn/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 32
+text = "●●○○"
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffMedBtn/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffMedBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "MEDIUM"
+
+[node name="Desc" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffMedBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.75, 0.65, 1)
+theme_override_font_sizes/font_size = 22
+text = "Balanced tactical opponent"
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffMedBtn/HBox"]
+visible = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 32
+text = "✔"
+
+[node name="DiffHardBtn" type="Button" parent="SafeArea/Layout/Step1_Difficulty/DiffCards"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffHardBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_right = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="SignalBar" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffHardBtn/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.2, 1)
+theme_override_font_sizes/font_size = 32
+text = "●●●○"
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffHardBtn/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffHardBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "HARD"
+
+[node name="Desc" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffHardBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.75, 0.65, 1)
+theme_override_font_sizes/font_size = 22
+text = "Smart defensive & offensive traps"
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffHardBtn/HBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 32
+text = "✔"
+
+[node name="DiffExpertBtn" type="Button" parent="SafeArea/Layout/Step1_Difficulty/DiffCards"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffExpertBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_right = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="SignalBar" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffExpertBtn/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.25, 0.25, 1)
+theme_override_font_sizes/font_size = 32
+text = "●●●●"
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffExpertBtn/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffExpertBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "EXPERT"
+
+[node name="Desc" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffExpertBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.75, 0.65, 1)
+theme_override_font_sizes/font_size = 22
+text = "Master Minimax engine, zero mercy"
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step1_Difficulty/DiffCards/DiffExpertBtn/HBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 32
+text = "✔"
+
+[node name="Spacer1" type="Control" parent="SafeArea/Layout/Step1_Difficulty"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Step1NextBtn" type="Button" parent="SafeArea/Layout/Step1_Difficulty"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14, 0.08, 0.03, 1)
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gold")
+text = "CONTINUE ❯"
+
+[node name="Step2_GhutiColor" type="VBoxContainer" parent="SafeArea/Layout"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="SubTitle" type="Label" parent="SafeArea/Layout/Step2_GhutiColor"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.75, 1)
+theme_override_font_sizes/font_size = 28
+text = "Choose your pieces for the battle:"
+horizontal_alignment = 1
+
+[node name="GhutiCardsHBox" type="HBoxContainer" parent="SafeArea/Layout/Step2_GhutiColor"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="GhutiRedBtn" type="Button" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiRedBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ImageRect" type="TextureRect" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiRedBtn/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("5_tray_red")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiRedBtn/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_font_sizes/font_size = 32
+text = "RED GHUTI"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiRedBtn/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.78, 0.68, 1)
+theme_override_font_sizes/font_size = 22
+text = "Moves First"
+horizontal_alignment = 1
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiRedBtn/VBox"]
+visible = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 28
+text = "● SELECTED"
+horizontal_alignment = 1
+
+[node name="GhutiWhiteBtn" type="Button" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiWhiteBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ImageRect" type="TextureRect" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiWhiteBtn/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("6_tray_white")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiWhiteBtn/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.94, 0.88, 1)
+theme_override_font_sizes/font_size = 32
+text = "WHITE GHUTI"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiWhiteBtn/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.78, 0.68, 1)
+theme_override_font_sizes/font_size = 22
+text = "AI Moves First"
+horizontal_alignment = 1
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step2_GhutiColor/GhutiCardsHBox/GhutiWhiteBtn/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 28
+text = "● SELECTED"
+horizontal_alignment = 1
+
+[node name="Step2NextBtn" type="Button" parent="SafeArea/Layout/Step2_GhutiColor"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14, 0.08, 0.03, 1)
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gold")
+text = "CONTINUE ❯"
+
+[node name="Step3_BoardTheme" type="VBoxContainer" parent="SafeArea/Layout"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="FeaturedCard" type="PanelContainer" parent="SafeArea/Layout/Step3_BoardTheme"]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="ThemeClassicBtn" type="Button" parent="SafeArea/Layout/Step3_BoardTheme/FeaturedCard"]
+layout_mode = 2
+flat = true
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/Layout/Step3_BoardTheme/FeaturedCard/ThemeClassicBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Preview" type="TextureRect" parent="SafeArea/Layout/Step3_BoardTheme/FeaturedCard/ThemeClassicBtn/HBox"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+texture = ExtResource("7_th_wood")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step3_BoardTheme/FeaturedCard/ThemeClassicBtn/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/FeaturedCard/ThemeClassicBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.45, 1)
+theme_override_font_sizes/font_size = 32
+text = "CLASSIC WOOD"
+
+[node name="Desc" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/FeaturedCard/ThemeClassicBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.8, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+text = "Traditional hand-engraved authentic board"
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/FeaturedCard/ThemeClassicBtn/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 24
+text = "★ FEATURED & SELECTED"
+
+[node name="Grid" type="GridContainer" parent="SafeArea/Layout/Step3_BoardTheme"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="ThemeMarbleBtn" type="Button" parent="SafeArea/Layout/Step3_BoardTheme/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeMarbleBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Tex" type="TextureRect" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeMarbleBtn/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("8_th_marble")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeMarbleBtn/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.8, 1)
+theme_override_font_sizes/font_size = 24
+text = "Royal Marble"
+horizontal_alignment = 1
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeMarbleBtn/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 20
+text = "● SELECTED"
+horizontal_alignment = 1
+
+[node name="ThemeMysticBtn" type="Button" parent="SafeArea/Layout/Step3_BoardTheme/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeMysticBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Tex" type="TextureRect" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeMysticBtn/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("9_th_mystic")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeMysticBtn/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Dark Mystic"
+horizontal_alignment = 1
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeMysticBtn/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 20
+text = "● SELECTED"
+horizontal_alignment = 1
+
+[node name="ThemePalaceBtn" type="Button" parent="SafeArea/Layout/Step3_BoardTheme/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemePalaceBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Tex" type="TextureRect" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemePalaceBtn/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("10_th_palace")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemePalaceBtn/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.45, 1)
+theme_override_font_sizes/font_size = 24
+text = "Golden Palace"
+horizontal_alignment = 1
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemePalaceBtn/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 20
+text = "● SELECTED"
+horizontal_alignment = 1
+
+[node name="ThemeForestBtn" type="Button" parent="SafeArea/Layout/Step3_BoardTheme/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeForestBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Tex" type="TextureRect" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeForestBtn/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("11_th_forest")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeForestBtn/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 24
+text = "Green Forest"
+horizontal_alignment = 1
+
+[node name="SelectedBadge" type="Label" parent="SafeArea/Layout/Step3_BoardTheme/Grid/ThemeForestBtn/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 20
+text = "● SELECTED"
+horizontal_alignment = 1
+
+[node name="Step3NextBtn" type="Button" parent="SafeArea/Layout/Step3_BoardTheme"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14, 0.08, 0.03, 1)
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gold")
+text = "START GAME ❯"
+
+[node name="Step4_VSScreen" type="VBoxContainer" parent="SafeArea/Layout"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="SpacerTop" type="Control" parent="SafeArea/Layout/Step4_VSScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MatchupCard" type="PanelContainer" parent="SafeArea/Layout/Step4_VSScreen"]
+custom_minimum_size = Vector2(0, 480)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayerSide" type="VBoxContainer" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="CenterAv" type="CenterContainer" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/PlayerSide"]
+layout_mode = 2
+
+[node name="VSPlayerAvatar" type="TextureRect" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/PlayerSide/CenterAv"]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+texture = ExtResource("12_av")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VSPlayerName" type="Label" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/PlayerSide"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 32
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="DotBox" type="HBoxContainer" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/PlayerSide"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="VSPlayerGhutiDot" type="ColorRect" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/PlayerSide/DotBox"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+color = Color(0.95, 0.25, 0.25, 1)
+
+[node name="Role" type="Label" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/PlayerSide/DotBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.8, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+text = "YOU"
+
+[node name="VSColumn" type="VBoxContainer" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="VSEmblem" type="Label" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/VSColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.25, 1)
+theme_override_font_sizes/font_size = 64
+text = "VS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AISide" type="VBoxContainer" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="CenterAv" type="CenterContainer" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/AISide"]
+layout_mode = 2
+
+[node name="VSAIAvatar" type="TextureRect" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/AISide/CenterAv"]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+texture = ExtResource("4_mascot")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AIName" type="Label" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/AISide"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 32
+text = "RoboMaster AI"
+horizontal_alignment = 1
+
+[node name="DotBox" type="HBoxContainer" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/AISide"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="VSAIGhutiDot" type="ColorRect" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/AISide/DotBox"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+color = Color(0.96, 0.94, 0.88, 1)
+
+[node name="VSAIDiffLabel" type="Label" parent="SafeArea/Layout/Step4_VSScreen/MatchupCard/HBox/AISide/DotBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.8, 0.7, 1)
+theme_override_font_sizes/font_size = 20
+text = "DIFFICULTY: MEDIUM"
+
+[node name="VSCountdownLabel" type="Label" parent="SafeArea/Layout/Step4_VSScreen"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_font_sizes/font_size = 36
+text = "Game starting in 3..."
+horizontal_alignment = 1
+
+[node name="SpacerBot" type="Control" parent="SafeArea/Layout/Step4_VSScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VSStartNowBtn" type="Button" parent="SafeArea/Layout/Step4_VSScreen"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14, 0.08, 0.03, 1)
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gold")
+text = "PLAY NOW ❯"

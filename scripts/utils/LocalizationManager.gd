@@ -6,8 +6,8 @@ extends RefCounted
 ## Integrated directly with Godot's TranslationServer so tr("KEY") resolves instantly.
 
 const STRINGS_EN: Dictionary = {
-	"APP_NAME": "16 GUTI",
-	"APP_SUBTITLE": "SHOLO GUTI",
+	"APP_NAME": "16 GHUTI",
+	"APP_SUBTITLE": "SHOLO GHUTI",
 	"MENU_PLAY_VS_AI": "PLAY VS AI",
 	"MENU_LOCAL_2P": "LOCAL 2 PLAYER",
 	"MENU_ONLINE_MP": "ONLINE MULTIPLAYER",
@@ -19,7 +19,7 @@ const STRINGS_EN: Dictionary = {
 	"HUD_WAITING": "WAITING...",
 	"HUD_AI_THINKING": "AI IS THINKING...",
 	"HUD_EXTRA_TIME": "EXTRA TIME",
-	"HUD_GUTI_COUNT": "%d Guti",
+	"HUD_GUTI_COUNT": "%d Ghuti",
 	"HUD_MENU": "MENU",
 	"HUD_THEME": "THEME",
 	"HUD_UNDO": "UNDO",

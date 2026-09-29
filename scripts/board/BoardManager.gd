@@ -61,6 +61,14 @@ func apply_theme(theme_id: String) -> void:
 			wood_path = "res://assets/textures/board_wood_mahogany.jpg"
 		"ivory_maple":
 			wood_path = "res://assets/textures/board_wood_light.jpg"
+		"royal_marble":
+			wood_path = "res://assets/textures/theme_royal_marble.jpg"
+		"dark_mystic":
+			wood_path = "res://assets/textures/theme_dark_mystic.jpg"
+		"golden_palace":
+			wood_path = "res://assets/textures/theme_golden_palace.jpg"
+		"green_forest":
+			wood_path = "res://assets/textures/theme_green_forest.jpg"
 		_:
 			wood_path = "res://assets/textures/board_wood_classic.jpg"
 			

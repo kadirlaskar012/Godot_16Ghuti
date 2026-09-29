@@ -1,13 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://cmainmenu16guti01"]
+[gd_scene load_steps=18 format=3 uid="uid://cmainmenu16ghuti01"]
 
 [ext_resource type="Script" path="res://scripts/ui/MainMenu.gd" id="1_menu"]
 [ext_resource type="Texture2D" path="res://assets/textures/tabletop_bg.jpg" id="2_bg"]
 [ext_resource type="Texture2D" path="res://assets/textures/bg_light_spot.png" id="3_spot"]
 [ext_resource type="Texture2D" path="res://assets/textures/vignette_overlay.png" id="4_vignette"]
-[ext_resource type="Texture2D" path="res://assets/textures/avatar_player1.png" id="5_av1"]
+[ext_resource type="Texture2D" path="res://assets/textures/avatar_warrior.png" id="5_av1"]
 [ext_resource type="Texture2D" path="res://assets/textures/coin_gold.png" id="6_coin"]
 [ext_resource type="Texture2D" path="res://assets/textures/icon_settings.png" id="7_set"]
-[ext_resource type="Texture2D" path="res://assets/textures/game_logo.png" id="8_logo"]
+[ext_resource type="Texture2D" path="res://assets/textures/game_logo_ghuti.jpg" id="8_logo"]
 
 [sub_resource type="Gradient" id="Gradient_dust"]
 colors = PackedColorArray(1, 0.88, 0.5, 0.7, 1, 0.65, 0.25, 0)
@@ -34,10 +34,10 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(1, 0.92, 0.65, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 26
-corner_radius_bottom_right = 26
-corner_radius_bottom_left = 26
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 shadow_color = Color(0, 0, 0, 0.55)
 shadow_size = 16
 shadow_offset = Vector2(0, 7)
@@ -68,6 +68,50 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quick_icon"]
+bg_color = Color(0.15, 0.09, 0.04, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.35, 0.8)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_season_panel"]
+bg_color = Color(0.12, 0.08, 0.04, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.35, 0.75)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progress_bg"]
+bg_color = Color(0.08, 0.05, 0.02, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progress_fill"]
+bg_color = Color(0.9, 0.65, 0.15, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -141,21 +185,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 56
-theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 48
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 52
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
 [node name="ContentLayout" type="VBoxContainer" parent="SafeArea"]
 layout_mode = 2
-
-[node name="TopBar" type="HBoxContainer" parent="SafeArea/ContentLayout"]
-custom_minimum_size = Vector2(0, 96)
-layout_mode = 2
 theme_override_constants/separation = 16
 
+[node name="TopBar" type="HBoxContainer" parent="SafeArea/ContentLayout"]
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+theme_override_constants/separation = 12
+
 [node name="ProfileButton" type="Button" parent="SafeArea/ContentLayout/TopBar"]
-custom_minimum_size = Vector2(340, 92)
+custom_minimum_size = Vector2(300, 84)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
 theme_override_styles/hover = SubResource("StyleBoxFlat_header_pill")
@@ -166,33 +211,44 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 14.0
-offset_right = -18.0
+offset_left = 10.0
+offset_right = -14.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Avatar" type="TextureRect" parent="SafeArea/ContentLayout/TopBar/ProfileButton/HBox"]
-custom_minimum_size = Vector2(68, 68)
+custom_minimum_size = Vector2(62, 62)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("5_av1")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="NameLabel" type="Label" parent="SafeArea/ContentLayout/TopBar/ProfileButton/HBox"]
+[node name="NameVBox" type="VBoxContainer" parent="SafeArea/ContentLayout/TopBar/ProfileButton/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="SafeArea/ContentLayout/TopBar/ProfileButton/HBox/NameVBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.92, 0.84, 1)
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 26
 text = "Player 1"
+
+[node name="LevelLabel" type="Label" parent="SafeArea/ContentLayout/TopBar/ProfileButton/HBox/NameVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 18
+text = "Level 5"
 
 [node name="Spacer" type="Control" parent="SafeArea/ContentLayout/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="CoinsButton" type="Button" parent="SafeArea/ContentLayout/TopBar"]
-custom_minimum_size = Vector2(230, 92)
+custom_minimum_size = Vector2(200, 84)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
 theme_override_styles/hover = SubResource("StyleBoxFlat_header_pill")
@@ -203,15 +259,15 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_right = -16.0
+offset_left = 12.0
+offset_right = -12.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="CoinIcon" type="TextureRect" parent="SafeArea/ContentLayout/TopBar/CoinsButton/HBox"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("6_coin")
@@ -221,48 +277,65 @@ stretch_mode = 5
 [node name="CoinsLabel" type="Label" parent="SafeArea/ContentLayout/TopBar/CoinsButton/HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.86, 0.38, 1)
-theme_override_font_sizes/font_size = 34
-text = "250"
+theme_override_font_sizes/font_size = 28
+text = "3,450 +"
 horizontal_alignment = 1
 
-[node name="RightControls" type="VBoxContainer" parent="SafeArea/ContentLayout/TopBar"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="SettingsButton" type="Button" parent="SafeArea/ContentLayout/TopBar/RightControls"]
-custom_minimum_size = Vector2(92, 92)
+[node name="GemsButton" type="Button" parent="SafeArea/ContentLayout/TopBar"]
+custom_minimum_size = Vector2(170, 84)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
 theme_override_styles/hover = SubResource("StyleBoxFlat_header_pill")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_header_pill")
 
-[node name="SettingsIcon" type="TextureRect" parent="SafeArea/ContentLayout/TopBar/RightControls/SettingsButton"]
-custom_minimum_size = Vector2(52, 52)
+[node name="HBox" type="HBoxContainer" parent="SafeArea/ContentLayout/TopBar/GemsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_right = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="GemIcon" type="Label" parent="SafeArea/ContentLayout/TopBar/GemsButton/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "💎"
+
+[node name="GemsLabel" type="Label" parent="SafeArea/ContentLayout/TopBar/GemsButton/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "120 +"
+horizontal_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="SafeArea/ContentLayout/TopBar"]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/hover = SubResource("StyleBoxFlat_header_pill")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_header_pill")
+
+[node name="SettingsIcon" type="TextureRect" parent="SafeArea/ContentLayout/TopBar/SettingsButton"]
+custom_minimum_size = Vector2(46, 46)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -26.0
-offset_top = -26.0
-offset_right = 26.0
-offset_bottom = 26.0
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_set")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="ThemeButton" type="Button" parent="SafeArea/ContentLayout/TopBar/RightControls"]
-custom_minimum_size = Vector2(92, 92)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.9, 0.75, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_header_pill")
-theme_override_styles/hover = SubResource("StyleBoxFlat_header_pill")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_header_pill")
-text = "🎨"
 
 [node name="TopSpacer" type="Control" parent="SafeArea/ContentLayout"]
 layout_mode = 2
@@ -272,7 +345,7 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="Logo" type="TextureRect" parent="SafeArea/ContentLayout/LogoCenter"]
-custom_minimum_size = Vector2(660, 256)
+custom_minimum_size = Vector2(680, 270)
 layout_mode = 2
 texture = ExtResource("8_logo")
 expand_mode = 1
@@ -286,55 +359,144 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="Buttons" type="VBoxContainer" parent="SafeArea/ContentLayout/ButtonsCenter"]
-custom_minimum_size = Vector2(680, 0)
+custom_minimum_size = Vector2(720, 0)
 layout_mode = 2
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="PlayAIButton" type="Button" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
-custom_minimum_size = Vector2(680, 128)
+custom_minimum_size = Vector2(720, 130)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.14, 0.08, 0.03, 1)
-theme_override_colors/font_pressed_color = Color(0.06, 0.03, 0.01, 1)
-theme_override_colors/font_hover_color = Color(0.18, 0.1, 0.04, 1)
-theme_override_font_sizes/font_size = 42
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_primary")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_primary")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_primary")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayAIButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_right = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayAIButton/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 54
+text = "🤖"
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayAIButton/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayAIButton/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.07, 0.02, 1)
+theme_override_font_sizes/font_size = 40
 text = "PLAY VS AI"
 
-[node name="PrimaryGap" type="Control" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
-custom_minimum_size = Vector2(0, 32)
+[node name="Sub" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayAIButton/HBox/VBox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.24, 0.14, 0.05, 0.85)
+theme_override_font_sizes/font_size = 22
+text = "Challenge intelligent robot bot"
+
+[node name="Arrow" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayAIButton/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14, 0.08, 0.03, 1)
+theme_override_font_sizes/font_size = 38
+text = "❯"
 
 [node name="PlayLocalButton" type="Button" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
-custom_minimum_size = Vector2(680, 110)
+custom_minimum_size = Vector2(720, 114)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.96, 0.9, 0.8, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.96, 0.88, 1)
-theme_override_colors/font_hover_color = Color(1, 0.96, 0.88, 1)
-theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_secondary")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_secondary")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayLocalButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_right = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayLocalButton/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "👥"
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayLocalButton/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayLocalButton/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.9, 0.8, 1)
+theme_override_font_sizes/font_size = 34
 text = "LOCAL 2 PLAYER"
 
-[node name="SecGap1" type="Control" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
-custom_minimum_size = Vector2(0, 18)
+[node name="Sub" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayLocalButton/HBox/VBox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.72, 0.6, 0.85)
+theme_override_font_sizes/font_size = 20
+text = "Pass and play on the same screen"
+
+[node name="Arrow" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayLocalButton/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.7, 0.4, 1)
+theme_override_font_sizes/font_size = 32
+text = "❯"
 
 [node name="PlayOnlineButton" type="Button" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
-custom_minimum_size = Vector2(680, 110)
+custom_minimum_size = Vector2(720, 114)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.96, 0.9, 0.8, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.96, 0.88, 1)
-theme_override_colors/font_hover_color = Color(1, 0.96, 0.88, 1)
-theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_secondary")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_secondary")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_right = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "🌐"
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.9, 0.8, 1)
+theme_override_font_sizes/font_size = 34
 text = "ONLINE MULTIPLAYER"
 
-[node name="ComingSoonBadge" type="PanelContainer" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton"]
+[node name="Sub" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.72, 0.6, 0.85)
+theme_override_font_sizes/font_size = 20
+text = "Compete against players worldwide"
+
+[node name="OnlineBadge" type="PanelContainer" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -342,38 +504,228 @@ anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
 offset_left = -118.0
-offset_top = -16.0
+offset_top = -14.0
 offset_right = -14.0
-offset_bottom = 24.0
+offset_bottom = 26.0
 grow_horizontal = 0
-grow_vertical = 1
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_badge")
 
-[node name="BadgeLabel" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton/ComingSoonBadge"]
+[node name="BadgeLabel" type="Label" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons/PlayOnlineButton/OnlineBadge"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.84, 0.38, 1)
-theme_override_font_sizes/font_size = 19
-text = "BETA"
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 18
+text = "ONLINE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SecGap2" type="Control" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
-custom_minimum_size = Vector2(0, 18)
+[node name="QuickActionsRow" type="HBoxContainer" parent="SafeArea/ContentLayout"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
 
-[node name="RulesButton" type="Button" parent="SafeArea/ContentLayout/ButtonsCenter/Buttons"]
-custom_minimum_size = Vector2(680, 110)
+[node name="ShopButton" type="Button" parent="SafeArea/ContentLayout/QuickActionsRow"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.96, 0.9, 0.8, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.96, 0.88, 1)
-theme_override_colors/font_hover_color = Color(1, 0.96, 0.88, 1)
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_quick_icon")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/ContentLayout/QuickActionsRow/ShopButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/ShopButton/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "🛒"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/ShopButton/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_font_sizes/font_size = 18
+text = "Shop"
+horizontal_alignment = 1
+
+[node name="ThemeButton" type="Button" parent="SafeArea/ContentLayout/QuickActionsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_quick_icon")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/ContentLayout/QuickActionsRow/ThemeButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/ThemeButton/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "🎨"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/ThemeButton/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_font_sizes/font_size = 18
+text = "Themes"
+horizontal_alignment = 1
+
+[node name="SkinsButton" type="Button" parent="SafeArea/ContentLayout/QuickActionsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_quick_icon")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/ContentLayout/QuickActionsRow/SkinsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/SkinsButton/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "⚪"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/SkinsButton/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_font_sizes/font_size = 18
+text = "Skins"
+horizontal_alignment = 1
+
+[node name="ProfileQuickButton" type="Button" parent="SafeArea/ContentLayout/QuickActionsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_quick_icon")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/ContentLayout/QuickActionsRow/ProfileQuickButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/ProfileQuickButton/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "👤"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/ProfileQuickButton/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_font_sizes/font_size = 18
+text = "Profile"
+horizontal_alignment = 1
+
+[node name="StatsButton" type="Button" parent="SafeArea/ContentLayout/QuickActionsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_quick_icon")
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/ContentLayout/QuickActionsRow/StatsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/StatsButton/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "📊"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="SafeArea/ContentLayout/QuickActionsRow/StatsButton/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_font_sizes/font_size = 18
+text = "Stats"
+horizontal_alignment = 1
+
+[node name="SeasonBanner" type="PanelContainer" parent="SafeArea/ContentLayout"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_season_panel")
+
+[node name="HBox" type="HBoxContainer" parent="SafeArea/ContentLayout/SeasonBanner"]
+layout_mode = 2
+offset_left = 20.0
+offset_right = -20.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="SeasonTitleVBox" type="VBoxContainer" parent="SafeArea/ContentLayout/SeasonBanner/HBox"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="SeasonName" type="Label" parent="SafeArea/ContentLayout/SeasonBanner/HBox/SeasonTitleVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.45, 1)
+theme_override_font_sizes/font_size = 24
+text = "SEASON 1"
+
+[node name="SeasonTier" type="Label" parent="SafeArea/ContentLayout/SeasonBanner/HBox/SeasonTitleVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.75, 0.65, 1)
+theme_override_font_sizes/font_size = 18
+text = "Tier 3 / 10"
+
+[node name="ProgressVBox" type="VBoxContainer" parent="SafeArea/ContentLayout/SeasonBanner/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="XPLabel" type="Label" parent="SafeArea/ContentLayout/SeasonBanner/HBox/ProgressVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.75, 1)
+theme_override_font_sizes/font_size = 20
+text = "Pass XP: 250 / 500"
+
+[node name="ProgressBar" type="ProgressBar" parent="SafeArea/ContentLayout/SeasonBanner/HBox/ProgressVBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_progress_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_progress_fill")
+value = 50.0
+show_percentage = false
+
+[node name="RewardBox" type="HBoxContainer" parent="SafeArea/ContentLayout/SeasonBanner/HBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="GiftIcon" type="Label" parent="SafeArea/ContentLayout/SeasonBanner/HBox/RewardBox"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_secondary")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_secondary")
-text = "HOW TO PLAY"
+text = "🎁"
 
-[node name="BottomSpacer" type="Control" parent="SafeArea/ContentLayout"]
+[node name="RewardText" type="Label" parent="SafeArea/ContentLayout/SeasonBanner/HBox/RewardBox"]
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "Next: 500 Coins"
